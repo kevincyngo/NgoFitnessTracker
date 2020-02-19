@@ -14,6 +14,7 @@
 		F05A403C23FC9A4200ABC8E2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F05A403B23FC9A4200ABC8E2 /* Assets.xcassets */; };
 		F05A403F23FC9A4200ABC8E2 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F05A403E23FC9A4200ABC8E2 /* Preview Assets.xcassets */; };
 		F05A404223FC9A4200ABC8E2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F05A404023FC9A4200ABC8E2 /* LaunchScreen.storyboard */; };
+		F05A40AC23FD075800ABC8E2 /* AddWorkoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F05A40AB23FD075800ABC8E2 /* AddWorkoutView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		F05A403E23FC9A4200ABC8E2 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		F05A404123FC9A4200ABC8E2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F05A404323FC9A4200ABC8E2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F05A40AB23FD075800ABC8E2 /* AddWorkoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWorkoutView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,11 +60,10 @@
 		F05A403123FC9A4000ABC8E2 /* NgoFitnessTracker */ = {
 			isa = PBXGroup;
 			children = (
-				F05A403223FC9A4000ABC8E2 /* AppDelegate.swift */,
-				F05A403423FC9A4000ABC8E2 /* SceneDelegate.swift */,
-				F05A403923FC9A4000ABC8E2 /* ContentView.swift */,
+				F05A40AA23FD073000ABC8E2 /* Init */,
+				F05A40A923FD072400ABC8E2 /* Model */,
+				F05A40A823FD072000ABC8E2 /* View */,
 				F05A403B23FC9A4200ABC8E2 /* Assets.xcassets */,
-				F05A404023FC9A4200ABC8E2 /* LaunchScreen.storyboard */,
 				F05A404323FC9A4200ABC8E2 /* Info.plist */,
 				F05A403623FC9A4000ABC8E2 /* NgoFitnessTracker.xcdatamodeld */,
 				F05A403D23FC9A4200ABC8E2 /* Preview Content */,
@@ -76,6 +77,32 @@
 				F05A403E23FC9A4200ABC8E2 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		F05A40A823FD072000ABC8E2 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				F05A403923FC9A4000ABC8E2 /* ContentView.swift */,
+				F05A40AB23FD075800ABC8E2 /* AddWorkoutView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		F05A40A923FD072400ABC8E2 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		F05A40AA23FD073000ABC8E2 /* Init */ = {
+			isa = PBXGroup;
+			children = (
+				F05A403223FC9A4000ABC8E2 /* AppDelegate.swift */,
+				F05A404023FC9A4200ABC8E2 /* LaunchScreen.storyboard */,
+				F05A403423FC9A4000ABC8E2 /* SceneDelegate.swift */,
+			);
+			path = Init;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -150,6 +177,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F05A403323FC9A4000ABC8E2 /* AppDelegate.swift in Sources */,
+				F05A40AC23FD075800ABC8E2 /* AddWorkoutView.swift in Sources */,
 				F05A403523FC9A4000ABC8E2 /* SceneDelegate.swift in Sources */,
 				F05A403A23FC9A4000ABC8E2 /* ContentView.swift in Sources */,
 				F05A403823FC9A4000ABC8E2 /* NgoFitnessTracker.xcdatamodeld in Sources */,

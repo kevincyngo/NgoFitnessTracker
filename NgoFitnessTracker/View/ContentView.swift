@@ -8,11 +8,12 @@
 
 import SwiftUI
 
-struct Exercise: Identifiable {
-    let id: UUID = .init()
-    var setsRepsWeight: [SetsRepsWeight]
-
-}
+//struct Exercise: Identifiable {
+//    let id: UUID = .init()
+//    var sets: Int
+//    var reps: Int
+//
+//}
 
 struct Workout: Identifiable {
     let id: UUID = .init()
@@ -21,82 +22,17 @@ struct Workout: Identifiable {
     
 }
 
-struct SetsRepsWeight: Identifiable {
-    let id: UUID = .init()
-    var repsWeights: (reps: Int,weights: Int)
 
-}
 
 //enum WorkoutErrors: String {
 //    case empty = "Workout Title cannot be empty"
 //    case unique = "Workout already exists"
 //}
 
-struct AddWorkoutView: View {
-    @State private var workoutTitle: String = ""
-    @Binding var isPresented: Bool
-    @Binding var workouts: [Workout]
-    var body: some View {
-        NavigationView {
-            VStack{
-                TextField("Workout Title", text: $workoutTitle)
-                    .padding(30)
-                    .foregroundColor(Color.black)
-                    .background(Color.white)
-                    
-                
-                AddSetsRepsWeights()
-                
-                Spacer()
-                Button("Submit") {
-                    //TODO: make sure workout title is unique, use that as the id, remove UUID
-                    self.workouts.append(.init(mockExercises: self.workoutTitle))
-                    self.isPresented = false
-                }.disabled(workoutTitle.count < 3 || isUniqueTitle())
-            }
-            .navigationBarTitle("Add Workout...")
-        }
 
 
-        
-    }
-    
-    func isUniqueTitle() -> Bool {
-        for workout in workouts {
-            if workout.mockExercises == workoutTitle {
-                return true
-            }
-        }
-        return false
-    }
-}
 
 
-struct AddSetsRepsWeights: View {
-    @State private var setsRepsWeights: [SetsRepsWeight] = [.init(repsWeights: (3,3)),
-                                                        .init(repsWeights:(5,5))]
-    
-    var body: some View {
-        VStack{
-            List {
-                ForEach(setsRepsWeights) {repWeight in
-                    HStack {
-                        Text("\(repWeight.repsWeights.reps)")
-                        Text("\(repWeight.repsWeights.weights)")
-
-                    }
-                }
-            }
-            
-            
-            Button(action: {
-                //add row
-            }){
-                Text("ADD ROW")
-            }
-        }
-    }
-}
 
 
 struct ContentView: View {
