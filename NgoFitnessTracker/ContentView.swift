@@ -37,17 +37,26 @@ struct AddWorkoutView: View {
     @Binding var isPresented: Bool
     @Binding var workouts: [Workout]
     var body: some View {
-        VStack{
-            TextField("Workout Title", text: $workoutTitle)
-                .padding(30)
-                .background(Color.red)
-            
-            Button("Submit") {
-                //TODO: make sure workout title is unique, use that as the id, remove UUID
-                self.workouts.append(.init(mockExercises: self.workoutTitle))
-                self.isPresented = false
-            }.disabled(workoutTitle.count < 3 || isUniqueTitle())
+        NavigationView {
+            VStack{
+                TextField("Workout Title", text: $workoutTitle)
+                    .padding(30)
+                    .foregroundColor(Color.black)
+                    .background(Color.white)
+                    
+                
+                AddSetsRepsWeights()
+                
+                Spacer()
+                Button("Submit") {
+                    //TODO: make sure workout title is unique, use that as the id, remove UUID
+                    self.workouts.append(.init(mockExercises: self.workoutTitle))
+                    self.isPresented = false
+                }.disabled(workoutTitle.count < 3 || isUniqueTitle())
+            }
+            .navigationBarTitle("Add Workout...")
         }
+
 
         
     }
@@ -79,11 +88,11 @@ struct AddSetsRepsWeights: View {
                 }
             }
             
-            Spacer()
+            
             Button(action: {
                 //add row
             }){
-                Image(systemName: "plus")
+                Text("ADD ROW")
             }
         }
     }
@@ -102,7 +111,9 @@ struct ContentView: View {
                 VStack {
                     List {
                         ForEach(self.workouts) {workout in
-                            Text(workout.mockExercises)
+                            NavigationLink(destination: Text(workout.mockExercises)) {
+                                Text(workout.mockExercises)
+                            }
                         }
                         .onDelete(perform: self.delete)
                     }
@@ -117,18 +128,15 @@ struct ContentView: View {
                     }
                     .mask(Circle())
                 }
-                
             .navigationBarTitle("Workouts")
             }
         }.sheet(isPresented: $isAddingWorkout) {
             AddWorkoutView(isPresented: self.$isAddingWorkout, workouts: self.$workouts)
         }
-
     }
     func delete(at offsets: IndexSet) {
         workouts.remove(atOffsets: offsets)
     }
-    
 }
 
 struct ContentView_Previews: PreviewProvider {
