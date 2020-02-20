@@ -12,27 +12,26 @@ struct ExecuteWorkoutView: View {
     @State var workout: Workout
     
     var body: some View {
-        VStack{
+        VStack {
             List {
-                ForEach(workout.exercises) {exercise in
-                    NavigationLink(destination: UpdateExerciseView(exercise: exercise)) {
+                ForEach(workout.exercises) { exercise in
+                    NavigationLink(destination: UpdateExerciseView(exercise: exercise, workout: self.$workout)) {
                         Text("\(exercise.name)")
                         Text("\(exercise.sets)x\(exercise.reps)")
                     }
-                    
                 }
             }
             Button(action: {
                 print("startworkout")
             }) {
                 Text("Start workout")
-                .padding(30)
+                    .padding(30)
                     .background(Color.blue)
                     .foregroundColor(Color.white)
-                .cornerRadius(20)
+                    .cornerRadius(20)
             }
             Spacer()
-            .navigationBarTitle("\(workout.title)")
+                .navigationBarTitle("\(workout.title)")
         }
     }
 }

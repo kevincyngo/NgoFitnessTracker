@@ -14,8 +14,10 @@ struct UpdateExerciseView: View {
     @ObservedObject var exercise: Exercise
     @State private var sets: String = ""
     @State private var reps: String = ""
+    
+    @Binding var workout: Workout
+    
     var body: some View {
-        
             VStack {
                 VStack(alignment: .leading) {
                     Section(header: Text("Sets")) {
@@ -25,12 +27,12 @@ struct UpdateExerciseView: View {
                         TextField("Enter number of reps", text: $reps)
                     }
                     Spacer()
-                    
                 }
                 Spacer()
                 Button(action: {
                     self.exercise.reps = Int(self.reps)!
                     self.exercise.sets = Int(self.sets)!
+                    self.workout.exercises.append(Exercise(name:"newexercise", sets: 5, reps: 5))
                     self.presentationMode.wrappedValue.dismiss()
                 }) {
                     Text("Update exercise")
@@ -53,8 +55,8 @@ struct UpdateExerciseView: View {
 }
 
 
-struct UpdateExerciseView_Previews: PreviewProvider {
-    static var previews: some View {
-        UpdateExerciseView(exercise: Exercise(name: "Bench", sets: 5, reps: 5))
-    }
-}
+//struct UpdateExerciseView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        UpdateExerciseView(exercise: Exercise(name: "Bench", sets: 5, reps: 5))
+//    }
+//}
