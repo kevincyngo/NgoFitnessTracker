@@ -5,40 +5,10 @@
 //  Created by Kevin Ngo on 2020-02-18.
 //  Copyright © 2020 Kevin Ngo. All rights reserved.
 //
-
 import SwiftUI
 
-//struct Exercise: Identifiable {
-//    let id: UUID = .init()
-//    var sets: Int
-//    var reps: Int
-//
-//}
-
-struct Workout: Identifiable {
-    let id: UUID = .init()
-//    var excerises: [Exercise]
-    var mockExercises: String
-    
-}
-
-
-
-//enum WorkoutErrors: String {
-//    case empty = "Workout Title cannot be empty"
-//    case unique = "Workout already exists"
-//}
-
-
-
-
-
-
-
 struct ContentView: View {
-    @State private var workouts:[Workout] = [.init(mockExercises: "Upper Strength"),
-                                            .init(mockExercises: "Lower Strength"),
-                                            .init(mockExercises: "Lower Explosive")]
+    @ObservedObject var state: AppState = AppState(workouts: [Workout(title: "TEST", exercises: [Exercise(name: "BENCH", sets: 3, reps: 3)])])
     @State private var isAddingWorkout = false
     
     var body: some View {
@@ -46,9 +16,9 @@ struct ContentView: View {
             NavigationView {
                 VStack {
                     List {
-                        ForEach(self.workouts) {workout in
-                            NavigationLink(destination: Text(workout.mockExercises)) {
-                                Text(workout.mockExercises)
+                        ForEach(self.state.workouts) {workout in
+                            NavigationLink(destination: ExecuteWorkoutView(workout: workout)) {
+                                Text(workout.title)
                             }
                         }
                         .onDelete(perform: self.delete)
@@ -67,11 +37,11 @@ struct ContentView: View {
             .navigationBarTitle("Workouts")
             }
         }.sheet(isPresented: $isAddingWorkout) {
-            AddWorkoutView(isPresented: self.$isAddingWorkout, workouts: self.$workouts)
+            AddWorkoutView(isPresented: self.$isAddingWorkout, workouts: self.$state.workouts)
         }
     }
     func delete(at offsets: IndexSet) {
-        workouts.remove(atOffsets: offsets)
+        state.workouts.remove(atOffsets: offsets)
     }
 }
 

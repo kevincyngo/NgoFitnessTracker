@@ -16,7 +16,10 @@ struct ExecuteWorkoutView: View {
             Text("Workout Name: \(workout.title)")
             List {
                 ForEach(workout.exercises) {exercise in
-                    Text("\(exercise.name)")
+                    NavigationLink(destination: UpdateExerciseView(exercise: exercise)) {
+                        Text("\(exercise.name)")
+                    }
+                    
                 }
             }
             
