@@ -13,16 +13,26 @@ struct ExecuteWorkoutView: View {
     
     var body: some View {
         VStack{
-            Text("Workout Name: \(workout.title)")
             List {
                 ForEach(workout.exercises) {exercise in
                     NavigationLink(destination: UpdateExerciseView(exercise: exercise)) {
                         Text("\(exercise.name)")
+                        Text("\(exercise.sets)x\(exercise.reps)")
                     }
                     
                 }
             }
-            
+            Button(action: {
+                print("startworkout")
+            }) {
+                Text("Start workout")
+                .padding(30)
+                    .background(Color.blue)
+                    .foregroundColor(Color.white)
+                .cornerRadius(20)
+            }
+            Spacer()
+            .navigationBarTitle("\(workout.title)")
         }
     }
 }

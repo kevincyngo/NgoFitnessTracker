@@ -8,7 +8,11 @@
 import SwiftUI
 
 struct ContentView: View {
-    @ObservedObject var state: AppState = AppState(workouts: [Workout(title: "TEST", exercises: [Exercise(name: "BENCH", sets: 3, reps: 3)])])
+    @ObservedObject var state: AppState = AppState(workouts: [Workout(title: "Lower Power", exercises: [
+            Exercise(name: "Squat", sets: 4, reps: 5),
+            Exercise(name: "Deadlift", sets: 4, reps: 5),
+            Exercise(name: "Ham Curl", sets: 3, reps: 10),
+            Exercise(name: "Split Squat", sets: 3, reps: 10)])])
     @State private var isAddingWorkout = false
     
     var body: some View {
