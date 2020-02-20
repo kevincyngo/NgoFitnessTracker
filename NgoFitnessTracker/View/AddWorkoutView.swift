@@ -23,7 +23,7 @@ struct AddWorkoutView: View {
                 TextField("Workout Title", text: $workoutTitle)
                     .padding(30)
                     .foregroundColor(Color.black)
-//                    .background(Color.white)
+                //                    .background(Color.white)
                 
                 List {
                     ForEach(exercises) {exercise in
@@ -31,7 +31,7 @@ struct AddWorkoutView: View {
                             Text(exercise.name)
                             Text("Sets: \(exercise.sets)")
                             Text("Reps: \(exercise.reps)")
-
+                            
                         }
                     }
                 }
@@ -44,10 +44,10 @@ struct AddWorkoutView: View {
                 }.disabled(workoutTitle.count < 3 || isUniqueTitle())
             }
             .navigationBarTitle("Add Workout...")
-        .navigationBarItems(trailing:
-            NavigationLink(destination: AddExerciseView(exercises: self.$exercises)){
-                Text("Add exercise")
-        })
+            .navigationBarItems(trailing:
+                NavigationLink(destination: AddExerciseView(exercises: self.$exercises)){
+                    Text("Add exercise")
+            })
         }
         
         

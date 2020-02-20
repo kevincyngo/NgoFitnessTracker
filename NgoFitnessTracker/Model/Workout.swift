@@ -8,20 +8,20 @@
 
 import Foundation
 
-//struct Workout: Identifiable {
-//    let id: UUID = .init()
-////    var excerises: [Exercise]
-//    var mockExercises: String
-//}
-
-class Workout: Identifiable, ObservableObject {
+struct Workout: Identifiable {
     var id: UUID = .init()
     var title: String
-    @Published var exercises: [Exercise]
-//    @Published var exercises: String = ""
-    init(title: String, exercises: [Exercise]) {
-//    init(exercises: String) {
-        self.title = title
-        self.exercises = exercises
-    }
+    var exercises: [Exercise]
 }
+
+//class Workout: Identifiable, ObservableObject {
+//    var id: UUID = .init()
+//    var title: String
+//    @Published var exercises: [Exercise]
+////    @Published var exercises: String = ""
+//    init(title: String, exercises: [Exercise]) {
+////    init(exercises: String) {
+//        self.title = title
+//        self.exercises = exercises
+//    }
+//}

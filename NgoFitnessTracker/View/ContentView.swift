@@ -9,10 +9,10 @@ import SwiftUI
 
 struct ContentView: View {
     @ObservedObject var state: AppState = AppState(workouts: [Workout(title: "Lower Power", exercises: [
-            Exercise(name: "Squat", sets: 4, reps: 5),
-            Exercise(name: "Deadlift", sets: 4, reps: 5),
-            Exercise(name: "Ham Curl", sets: 3, reps: 10),
-            Exercise(name: "Split Squat", sets: 3, reps: 10)])])
+        Exercise(name: "Squat", sets: 4, reps: 5),
+        Exercise(name: "Deadlift", sets: 4, reps: 5),
+        Exercise(name: "Ham Curl", sets: 3, reps: 10),
+        Exercise(name: "Split Squat", sets: 3, reps: 10)])])
     @State private var isAddingWorkout = false
     
     var body: some View {
@@ -20,7 +20,7 @@ struct ContentView: View {
             NavigationView {
                 VStack {
                     List {
-                        ForEach(self.state.workouts) {workout in
+                        ForEach(self.state.workouts) { workout in
                             NavigationLink(destination: ExecuteWorkoutView(workout: workout)) {
                                 Text(workout.title)
                             }
@@ -38,7 +38,7 @@ struct ContentView: View {
                     }
                     .mask(Circle())
                 }
-            .navigationBarTitle("Workouts")
+                .navigationBarTitle("Workouts")
             }
         }.sheet(isPresented: $isAddingWorkout) {
             AddWorkoutView(isPresented: self.$isAddingWorkout, workouts: self.$state.workouts)

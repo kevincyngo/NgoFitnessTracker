@@ -11,10 +11,10 @@ import SwiftUI
 
 struct UpdateExerciseView: View {
     @Environment(\.presentationMode) var presentationMode
-    @ObservedObject var exercise: Exercise
+//    @State var exercise: Exercise
     @State private var sets: String = ""
     @State private var reps: String = ""
-    
+    var idx: Int
     @Binding var workout: Workout
     
     var body: some View {
@@ -30,9 +30,11 @@ struct UpdateExerciseView: View {
                 }
                 Spacer()
                 Button(action: {
-                    self.exercise.reps = Int(self.reps)!
-                    self.exercise.sets = Int(self.sets)!
-                    self.workout.exercises.append(Exercise(name:"newexercise", sets: 5, reps: 5))
+                    self.workout.exercises[self.idx].reps = Int(self.reps)!
+                    self.workout.exercises[self.idx].sets = Int(self.sets)!
+
+//                    self.exercise.reps = Int(self.reps)!
+//                    self.exercise.sets = Int(self.sets)!
                     self.presentationMode.wrappedValue.dismiss()
                 }) {
                     Text("Update exercise")
@@ -45,10 +47,10 @@ struct UpdateExerciseView: View {
                 
                 
             
-        .navigationBarTitle("\(exercise.name)")
+        .navigationBarTitle("\(self.workout.exercises[self.idx].name)")
         .onAppear() {
-            self.sets = String(self.exercise.sets)
-            self.reps = String(self.exercise.reps)
+            self.sets = String(self.workout.exercises[self.idx].sets)
+            self.reps = String(self.workout.exercises[self.idx].reps)
         }
         
     }
