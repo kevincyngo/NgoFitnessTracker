@@ -24,6 +24,7 @@
 		F0E371022404DD79000B5E07 /* AppReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E371012404DD79000B5E07 /* AppReducer.swift */; };
 		F0E371042404DEB5000B5E07 /* AppStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E371032404DEB5000B5E07 /* AppStore.swift */; };
 		F0E3713224064D55000B5E07 /* EditExerciseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E3713124064D55000B5E07 /* EditExerciseView.swift */; };
+		F0E371342407052E000B5E07 /* ExecuteExerciseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E371332407052E000B5E07 /* ExecuteExerciseView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +47,7 @@
 		F0E371012404DD79000B5E07 /* AppReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppReducer.swift; sourceTree = "<group>"; };
 		F0E371032404DEB5000B5E07 /* AppStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStore.swift; sourceTree = "<group>"; };
 		F0E3713124064D55000B5E07 /* EditExerciseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditExerciseView.swift; sourceTree = "<group>"; };
+		F0E371332407052E000B5E07 /* ExecuteExerciseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExecuteExerciseView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +107,7 @@
 				F05A40C323FE0C8D00ABC8E2 /* ContentView.swift */,
 				F0E3713124064D55000B5E07 /* EditExerciseView.swift */,
 				F05A40BF23FE04DC00ABC8E2 /* ExecuteWorkoutView.swift */,
+				F0E371332407052E000B5E07 /* ExecuteExerciseView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -210,6 +213,7 @@
 				F05A40BC23FDF62100ABC8E2 /* Exercise.swift in Sources */,
 				F05A40C023FE04DC00ABC8E2 /* ExecuteWorkoutView.swift in Sources */,
 				F05A40B423FDF5F800ABC8E2 /* Modifiers.swift in Sources */,
+				F0E371342407052E000B5E07 /* ExecuteExerciseView.swift in Sources */,
 				F0E3713224064D55000B5E07 /* EditExerciseView.swift in Sources */,
 				F0E371042404DEB5000B5E07 /* AppStore.swift in Sources */,
 				F0E371002404DD44000B5E07 /* AppAction.swift in Sources */,
