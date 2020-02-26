@@ -11,10 +11,16 @@ import Foundation
 struct Exercise: Identifiable {
     let id: UUID = .init()
     var name: String
-    var sets: Int
-    var reps: Int
+    var sets: Double
+    var reps: Double
 
+    var strSets: String {
+        String(Int(sets))
+    }
 
+    var strReps: String {
+        String(Int(reps))
+    }
 }
 //
 //class Exercise: Identifiable, ObservableObject {

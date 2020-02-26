@@ -14,14 +14,3 @@ struct Workout: Identifiable {
     var exercises: [Exercise]
 }
 
-//class Workout: Identifiable, ObservableObject {
-//    var id: UUID = .init()
-//    var title: String
-//    @Published var exercises: [Exercise]
-////    @Published var exercises: String = ""
-//    init(title: String, exercises: [Exercise]) {
-////    init(exercises: String) {
-//        self.title = title
-//        self.exercises = exercises
-//    }
-//}
