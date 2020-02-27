@@ -8,13 +8,6 @@
 
 import Foundation
 
-//class AppState: ObservableObject {
-//    @Published var workouts: [Workout] = []
-//    init(workouts: [Workout]) {
-//        self.workouts = workouts
-//    }
-//}
-
 struct AppState {
     var workouts: [Workout]
     

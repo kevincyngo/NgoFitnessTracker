@@ -21,17 +21,13 @@ struct Exercise: Identifiable {
     var strReps: String {
         String(Int(reps))
     }
+    
+    
+    
 }
-//
-//class Exercise: Identifiable, ObservableObject {
-//    var id: UUID = .init()
-//    @Published var name: String = ""
-//    @Published var sets: Int = 0
-//    @Published var reps: Int = 0
-//
-//    init(name: String, sets: Int, reps: Int) {
-//        self.name = name
-//        self.sets = sets
-//        self.reps = reps
-//    }
-//}
+
+struct Results: Identifiable {
+    let id: UUID = .init()
+    let reps: Int
+    let weight: Int
+}
