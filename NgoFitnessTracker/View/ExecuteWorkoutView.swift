@@ -34,6 +34,8 @@ struct ExecuteWorkoutView: View {
                     .cornerRadius(20)
             }
             Spacer()
+//                .navigationBarBackButtonHidden(true)
+                .navigationBarItems(trailing: Text("end workout"))
                 .navigationBarTitle("\(workout.title)")
 
         }

@@ -20,14 +20,16 @@ func appReducer(state: AppState, action: AppAction) -> AppState {
         } else {
             state.workouts[workoutIdx].exercises.append(exercise)
         }
-        
     case .addWorkout(let workout):
         state.workouts.append(workout)
     case .removeWorkout(let offsets):
         state.workouts.remove(atOffsets: offsets)
     case .moveWorkout(let source, let destination):
         state.workouts.move(fromOffsets: source, toOffset: destination)
+    case .moveExercise(let workoutIdx, let source, let destination):
+        state.workouts[workoutIdx].exercises.move(fromOffsets: source, toOffset: destination)
+    case .removeExercise(let workoutIdx, let offsets):
+        state.workouts[workoutIdx].exercises.remove(atOffsets: offsets)
     }
-    
     return state
 }

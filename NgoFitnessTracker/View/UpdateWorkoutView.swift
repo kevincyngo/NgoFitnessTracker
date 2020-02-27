@@ -34,6 +34,8 @@ struct UpdateWorkoutView: View {
                             }
                         }
                     }
+                    .onDelete(perform: self.delete)
+                    .onMove(perform: self.move)
                 }
             }
             //change this to a button
@@ -46,7 +48,7 @@ struct UpdateWorkoutView: View {
             }
             Spacer()
                 .navigationBarTitle("\(workout.title)")
-                .navigationBarItems(trailing:
+                .navigationBarItems(leading: EditButton(), trailing:
                     Button("Add Exercise") {
                         self.showingUpdateExerciseView = true
                         self.isAddingExercise = true
@@ -68,6 +70,13 @@ struct UpdateWorkoutView: View {
                     
             }
         }
+    }
+    func delete(at offsets: IndexSet) {
+        store.dispatch(action: .removeExercise(workoutIdx: self.workoutIdx, offsets: offsets))
+    }
+    
+    func move(source: IndexSet, destination: Int) {
+        store.dispatch(action: .moveExercise(workoutIdx: self.workoutIdx, source: source, destination: destination))
     }
 }
 

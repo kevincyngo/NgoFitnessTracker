@@ -14,4 +14,6 @@ enum AppAction {
     case addWorkout(workout: Workout)
     case removeWorkout(offsets: IndexSet)
     case moveWorkout(source: IndexSet, destination: Int)
+    case moveExercise(workoutIdx: Int, source: IndexSet, destination: Int)
+    case removeExercise(workoutIdx: Int, offsets: IndexSet)
 }
