@@ -11,11 +11,12 @@ struct ContentView: View {
     @EnvironmentObject var store: AppStore
     @State private var newWorkout: String = ""
     @State private var addingNewWorkout = false
+    
     var body: some View {
         NavigationView {
             List {
                 ForEach(self.store.state.workouts.indices, id: \.self) { idx in
-                    NavigationLink(destination: UpdateWorkoutView(workout: self.store.state.workouts[idx], workoutIdx: idx, exercises: self.store.state.workouts[idx].exercises).environmentObject(self.store)) {
+                    NavigationLink(destination: UpdateWorkoutView(workoutIdx: idx).environmentObject(self.store)) {
                         Text(self.store.state.workouts[idx].title)
                     }
                 }
@@ -33,13 +34,18 @@ struct ContentView: View {
                 }
             }
             .navigationBarTitle("Workouts")
-            .navigationBarItems(leading: EditButton(), trailing: Button(action: {
-                self.addingNewWorkout.toggle()
-            }, label: {
-                Image(systemName: "plus.circle.fill")
-                    .resizable()
-                    .frame(width: 25, height: 25)
-            }))
+            .navigationBarItems( trailing:
+                HStack {
+                    EditButton()
+                    Button(action: {
+                        self.addingNewWorkout.toggle()
+                    }, label: {
+                        Image(systemName: "plus.circle.fill")
+                            .resizable()
+                            .frame(width: 25, height: 25)
+                    })
+                }
+                )
         }
     }
     func delete(at offsets: IndexSet) {

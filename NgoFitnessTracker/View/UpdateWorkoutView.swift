@@ -9,11 +9,14 @@ import SwiftUI
 
 struct UpdateWorkoutView: View {
     @EnvironmentObject var store: AppStore
-    @State var workout: Workout
     @State var workoutIdx: Int
-    @State var exercises: [Exercise]
     @State var showingUpdateExerciseView = false
     @State var isAddingExercise = false
+    
+    var workout: Workout {
+        store.state.workouts[workoutIdx]
+    }
+    
     @State private var exerciseIndex = -1
     var body: some View {
         VStack {
@@ -38,34 +41,39 @@ struct UpdateWorkoutView: View {
                     .onMove(perform: self.move)
                 }
             }
-            //change this to a button
-            NavigationLink(destination: ExecuteWorkoutView(workout: self.store.state.workouts[self.workoutIdx], completedSets: [Int](repeating: 0, count: self.store.state.workouts[self.workoutIdx].exercises.count))) {
+            NavigationLink(destination: ExecuteWorkoutView(workoutIdx: self.workoutIdx, completedSets: [Int](repeating: 0, count: self.store.state.workouts[self.workoutIdx].exercises.count)).environmentObject(self.store)) {
                 Text("Start Workout")
                     .padding(30)
                     .background(Color.blue)
                     .foregroundColor(Color.white)
                     .cornerRadius(20)
             }
-            Spacer()
                 .navigationBarTitle("\(workout.title)")
-                .navigationBarItems(leading: EditButton(), trailing:
-                    Button("Add Exercise") {
-                        self.showingUpdateExerciseView = true
-                        self.isAddingExercise = true
+                .navigationBarItems(trailing:
+                    HStack {
+                        EditButton()
+                        Button(action: {
+                            self.showingUpdateExerciseView = true
+                            self.isAddingExercise = true
+                        }, label: {
+                            Image(systemName: "plus.circle.fill")
+                                .resizable()
+                                .frame(width: 25, height: 25)
+                        })
                     }
-                    //                    NavigationLink(destination: EditExerciseView(sets: 1, reps: 1, name: "", workoutId: self.workout.id, exerciseIdx: -1).environmentObject(self.store)){
-                    //                        Text("Add exercise")
-                    //                }
+                    
+                    
             )
                 .sheet(isPresented: $showingUpdateExerciseView) {
                     if self.isAddingExercise {
-                        EditExerciseView(sets: 1, reps: 1, name: "", workoutId: self.workout.id, exerciseIdx: -1, isPresented: self.$showingUpdateExerciseView).environmentObject(self.store)
+                        EditExerciseView(sets: 1, reps: 1, name: "", workoutIdx: self.workoutIdx, exerciseIdx: -1, isPresented: self.$showingUpdateExerciseView).environmentObject(self.store)
                     } else {
                         EditExerciseView(
                             sets: self.store.state.workouts[self.workoutIdx].exercises[self.exerciseIndex].sets,
                             reps: self.store.state.workouts[self.workoutIdx].exercises[self.exerciseIndex].reps,
                             name: self.store.state.workouts[self.workoutIdx].exercises[self.exerciseIndex].name,
-                            workoutId: self.workout.id, exerciseIdx: self.exerciseIndex, isPresented: self.$showingUpdateExerciseView).environmentObject(self.store)
+//                            results: self.store.state.workouts[self.workoutIdx].exercises[self.exerciseIndex].results,
+                            workoutIdx: self.workoutIdx, exerciseIdx: self.exerciseIndex, isPresented: self.$showingUpdateExerciseView).environmentObject(self.store)
                     }
                     
             }

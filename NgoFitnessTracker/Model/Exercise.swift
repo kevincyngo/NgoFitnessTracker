@@ -13,7 +13,7 @@ struct Exercise: Identifiable {
     var name: String
     var sets: Double
     var reps: Double
-
+    var results: [Results]
     var strSets: String {
         String(Int(sets))
     }
@@ -28,6 +28,6 @@ struct Exercise: Identifiable {
 
 struct Results: Identifiable {
     let id: UUID = .init()
-    let reps: Int
-    let weight: Int
+    var reps: Double
+    var weight: Double
 }

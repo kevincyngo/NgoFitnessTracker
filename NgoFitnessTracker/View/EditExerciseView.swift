@@ -14,7 +14,8 @@ struct EditExerciseView: View {
     @State var sets: Double
     @State var reps: Double
     @State var name: String
-    @State var workoutId: UUID
+//    @State var results: [Results]
+    @State var workoutIdx: Int
     @State var exerciseIdx: Int
     @Binding var isPresented: Bool
     
@@ -22,22 +23,28 @@ struct EditExerciseView: View {
         VStack {
             VStack {
                 Form {
-                    Section(header: Text("Exercise Title")) {
+                    Section(header: Text("Exercise Title").font(.headline)) {
                         TextField("Enter exercise title", text: $name)
+                            .padding(.vertical)
                     }
-                    Section(header: Text("Sets: \(Int(sets))")) {
+                    Section(header: Text("Sets: \(Int(sets))").font(.headline)) {
                         Slider(value: $sets, in: 1...20, step: 1)
+                        .padding(.vertical)
                     }
-                    Section(header: Text("Reps \(Int(reps))")) {
+                    Section(header: Text("Reps \(Int(reps))").font(.headline)) {
                         Slider(value: $reps, in: 1...20, step: 1)
+                        .padding(.vertical)
                     }
                 }.padding(.trailing)
             }
             Button(action: {
-                let exercise = Exercise(name: self.name, sets: self.sets, reps: self.reps)
-                self.store.dispatch(action: .updateExercise(workoutId: self.workoutId, exercise: exercise, exerciseIdx: self.exerciseIdx))
+                let results = Array(repeating: Results(reps:0, weight:0), count: Int(self.sets))
+                for result in results {
+                    print("Reps:\(result.reps) // Weight:\(result.weight)")
+                }
+                let exercise = Exercise(name: self.name, sets: self.sets, reps: self.reps, results: results)
+                self.store.dispatch(action: .updateExercise(workoutIdx: self.workoutIdx, exercise: exercise, exerciseIdx: self.exerciseIdx))
                 self.isPresented = false
-//                self.presentationMode.wrappedValue.dismiss()
             }) {
                 Text("Save Exercise")
                     .padding(30)
@@ -52,8 +59,8 @@ struct EditExerciseView: View {
 }
 
 
-struct EditExerciseView_Previews: PreviewProvider {
-    static var previews: some View {
-        EditExerciseView(sets:3, reps:3,name:"", workoutId: UUID(), exerciseIdx: -1, isPresented: .constant(true))
-    }
-}
+//struct EditExerciseView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        EditExerciseView(sets:3, reps:3,name:"", workoutIdx: 1, exerciseIdx: -1, isPresented: .constant(true))
+//    }
+//}

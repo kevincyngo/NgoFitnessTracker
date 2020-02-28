@@ -9,23 +9,32 @@
 import SwiftUI
 
 struct ExecuteWorkoutView: View {
-    @State var workout: Workout
+    @Environment(\.presentationMode) var presentationMode
+    @EnvironmentObject var store: AppStore
+    @State var workoutIdx : Int
     @State var completedSets: [Int]
+    @State var isExitingEarly = false
+    
+    var workout: Workout {
+        store.state.workouts[workoutIdx]
+    }
+    
     var body: some View {
-        //add nav bar item -> to erase workout
         VStack {
             List {
                 ForEach(workout.exercises.indices, id: \.self) { idx in
                     HStack {
-                        //NavigationLink to ExecuteExerciseView
-                        Text("\(self.workout.exercises[idx].name)")
-                        Spacer()
-                        Text("\(self.completedSets[idx])/\(self.workout.exercises[idx].strSets)")
+                        NavigationLink(destination: ExecuteExerciseView(workoutIdx: self.workoutIdx, exerciseIdx: idx, completedSets: self.$completedSets).environmentObject(self.store)) {
+                            Text("\(self.workout.exercises[idx].name)")
+                            Spacer()
+                            Text("\(self.completedSets[idx])/\(self.workout.exercises[idx].strSets)")
+                        }
                     }
                 }
             }
             Button(action: {
                 print("Complete Workout")
+                self.presentationMode.wrappedValue.dismiss()
             }) {
                 Text("Complete Workout")
                     .padding(30)
@@ -34,10 +43,24 @@ struct ExecuteWorkoutView: View {
                     .cornerRadius(20)
             }
             Spacer()
-//                .navigationBarBackButtonHidden(true)
-                .navigationBarItems(trailing: Text("end workout"))
+                .navigationBarBackButtonHidden(true)
+                .navigationBarItems(trailing: Button(action: {
+                    self.isExitingEarly = true
+                }) {
+                    Text("End Workout")
+                })
                 .navigationBarTitle("\(workout.title)")
-
+                .alert(isPresented: self.$isExitingEarly) {
+                    Alert(title: Text("End workout early?"),
+                          message: Text("This will not save your results."),
+                          primaryButton: Alert.Button.default(Text("Continue"), action: {
+                            self.presentationMode.wrappedValue.dismiss()
+                          }) ,
+                          secondaryButton: .cancel()
+                    )
+            }
+            
+            
         }
     }
 }

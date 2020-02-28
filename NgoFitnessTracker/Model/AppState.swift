@@ -10,14 +10,4 @@ import Foundation
 
 struct AppState {
     var workouts: [Workout]
-    
-    //getters (does not mutate state)
-    public func getWorkoutIndex(workoutId: UUID) -> Int {
-        for (idx, _) in workouts.enumerated() {
-            if workouts[idx].id == workoutId {
-                return idx
-            }
-        }
-        return -1
-    }
 }

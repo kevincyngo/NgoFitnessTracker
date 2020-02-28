@@ -13,8 +13,7 @@ func appReducer(state: AppState, action: AppAction) -> AppState {
     var state = state
     
     switch action {
-    case .updateExercise(let workoutId, let exercise, let exerciseIdx):
-        let workoutIdx = state.getWorkoutIndex(workoutId: workoutId)
+    case .updateExercise(let workoutIdx, let exercise, let exerciseIdx):
         if exerciseIdx >= 0 {
             state.workouts[workoutIdx].exercises[exerciseIdx] = exercise
         } else {
@@ -30,6 +29,10 @@ func appReducer(state: AppState, action: AppAction) -> AppState {
         state.workouts[workoutIdx].exercises.move(fromOffsets: source, toOffset: destination)
     case .removeExercise(let workoutIdx, let offsets):
         state.workouts[workoutIdx].exercises.remove(atOffsets: offsets)
+    case .updateResultsReps(let workoutIdx, let exerciseIdx, let resultsIdx, let reps):
+        state.workouts[workoutIdx].exercises[exerciseIdx].results[resultsIdx].reps = reps
+    case .updateResultsWeight(let workoutIdx, let exerciseIdx, let resultsIdx, let weight):
+        state.workouts[workoutIdx].exercises[exerciseIdx].results[resultsIdx].weight = weight
     }
     return state
 }
