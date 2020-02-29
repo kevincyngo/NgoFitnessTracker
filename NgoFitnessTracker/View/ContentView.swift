@@ -45,8 +45,9 @@ struct ContentView: View {
                             .frame(width: 25, height: 25)
                     })
                 }
-                )
-        }
+            )
+        }.font(.system(size: 20))
+
     }
     func delete(at offsets: IndexSet) {
         store.dispatch(action: .removeWorkout(offsets: offsets))

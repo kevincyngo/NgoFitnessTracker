@@ -28,6 +28,6 @@ struct Exercise: Identifiable {
 
 struct Results: Identifiable {
     let id: UUID = .init()
-    var reps: Double
-    var weight: Double
+    var reps: Int
+    var weight: Int
 }

@@ -8,6 +8,12 @@
 
 import SwiftUI
 
+extension UIApplication {
+    func endEditing() {
+        sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+    }
+}
+
 struct ExecuteExerciseView: View {
     @EnvironmentObject var store: AppStore
     @State var workoutIdx: Int
@@ -18,18 +24,14 @@ struct ExecuteExerciseView: View {
         store.state.workouts[workoutIdx].exercises[exerciseIdx]
     }
     
-    func test() -> Int {
-        return 5
-    }
-    
     func updateReps(resultsIdx: Int, reps: String) {
-        let doubleReps = Double(reps) ?? 0
-        store.dispatch(action: .updateResultsReps(workoutIdx: self.workoutIdx, exerciseIdx: self.exerciseIdx, resultsIdx: resultsIdx, reps: doubleReps))
+        let intReps = Int(reps) ?? 0
+        store.dispatch(action: .updateResultsReps(workoutIdx: self.workoutIdx, exerciseIdx: self.exerciseIdx, resultsIdx: resultsIdx, reps: intReps))
     }
     
     func updateWeights(resultsIdx: Int, weight: String) {
-        let doubleWeights = Double(weight) ?? 0
-        store.dispatch(action: .updateResultsWeight(workoutIdx: self.workoutIdx, exerciseIdx: self.exerciseIdx, resultsIdx: resultsIdx, weight: doubleWeights))
+        let intWeights = Int(weight) ?? 0
+        store.dispatch(action: .updateResultsWeight(workoutIdx: self.workoutIdx, exerciseIdx: self.exerciseIdx, resultsIdx: resultsIdx, weight: intWeights))
     }
     
     var body: some View {
@@ -47,24 +49,31 @@ struct ExecuteExerciseView: View {
                         HStack {
                             Text("Set \(idx+1)").frame(width: geo.size.width/5)
                             Spacer()
-                            TextField("temp", text: Binding(
+                            TextField("\(self.exercise.strReps)", text: Binding(
                                 get: {
-                                    String(self.store.state.workouts[self.workoutIdx].exercises[self.exerciseIdx].results[idx].reps)
+                                    (String(self.store.state.workouts[self.workoutIdx].exercises[self.exerciseIdx].results[idx].reps) == "-1" ? "" : String(self.store.state.workouts[self.workoutIdx].exercises[self.exerciseIdx].results[idx].reps))
                             }, set: {
                                 return self.updateReps(resultsIdx: idx, reps: $0)
                             }
                                 
                             )).frame(width: geo.size.width/5)
+                            .padding()
+                            .background(Color.secondary)
                             Spacer()
-                            TextField("temp", text: Binding(
+                            TextField("lbs", text: Binding(
                                 get: {
-                                    return String(self.store.state.workouts[self.workoutIdx].exercises[self.exerciseIdx].results[idx].weight)
+                                    String(self.store.state.workouts[self.workoutIdx].exercises[self.exerciseIdx].results[idx].weight) == "-1" ? "" : String(self.store.state.workouts[self.workoutIdx].exercises[self.exerciseIdx].results[idx].weight)
                             }, set: {
                                 newValue in return self.updateWeights(resultsIdx: idx, weight: newValue)
                             }
                                 
                             )).frame(width: geo.size.width/5)
-                        }.keyboardType(.decimalPad)
+                            .padding()
+                            .background(Color.secondary)
+                        }.keyboardType(.numberPad)
+                        .onTapGesture {
+                            self.endEditing()
+                        }
                     }
                 }
                 
@@ -82,6 +91,9 @@ struct ExecuteExerciseView: View {
         }
         
         
+    }
+    private func endEditing() {
+        UIApplication.shared.endEditing()
     }
 }
 

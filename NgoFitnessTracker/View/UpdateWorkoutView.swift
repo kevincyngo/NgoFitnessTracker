@@ -14,7 +14,10 @@ struct UpdateWorkoutView: View {
     @State var isAddingExercise = false
     
     var workout: Workout {
-        store.state.workouts[workoutIdx]
+        if(workoutIdx < store.state.workouts.count) {
+            return store.state.workouts[workoutIdx]
+        }
+        return Workout(title: "", exercises: [])
     }
     
     @State private var exerciseIndex = -1
@@ -41,7 +44,7 @@ struct UpdateWorkoutView: View {
                     .onMove(perform: self.move)
                 }
             }
-            NavigationLink(destination: ExecuteWorkoutView(workoutIdx: self.workoutIdx, completedSets: [Int](repeating: 0, count: self.store.state.workouts[self.workoutIdx].exercises.count)).environmentObject(self.store)) {
+            NavigationLink(destination: ExecuteWorkoutView(workoutIdx: self.workoutIdx, completedSets: [Int](repeating: 0, count: self.workout.exercises.count)).environmentObject(self.store)) {
                 Text("Start Workout")
                     .padding(30)
                     .background(Color.blue)
@@ -72,12 +75,12 @@ struct UpdateWorkoutView: View {
                             sets: self.store.state.workouts[self.workoutIdx].exercises[self.exerciseIndex].sets,
                             reps: self.store.state.workouts[self.workoutIdx].exercises[self.exerciseIndex].reps,
                             name: self.store.state.workouts[self.workoutIdx].exercises[self.exerciseIndex].name,
-//                            results: self.store.state.workouts[self.workoutIdx].exercises[self.exerciseIndex].results,
                             workoutIdx: self.workoutIdx, exerciseIdx: self.exerciseIndex, isPresented: self.$showingUpdateExerciseView).environmentObject(self.store)
                     }
                     
             }
-        }
+        }.font(.system(size: 20))
+
     }
     func delete(at offsets: IndexSet) {
         store.dispatch(action: .removeExercise(workoutIdx: self.workoutIdx, offsets: offsets))

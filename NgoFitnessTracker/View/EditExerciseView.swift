@@ -38,7 +38,7 @@ struct EditExerciseView: View {
                 }.padding(.trailing)
             }
             Button(action: {
-                let results = Array(repeating: Results(reps:0, weight:0), count: Int(self.sets))
+                let results = Array(repeating: Results(reps:-1, weight:-1), count: Int(self.sets))
                 for result in results {
                     print("Reps:\(result.reps) // Weight:\(result.weight)")
                 }

@@ -25,6 +25,7 @@
 		F0E371042404DEB5000B5E07 /* AppStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E371032404DEB5000B5E07 /* AppStore.swift */; };
 		F0E3713224064D55000B5E07 /* EditExerciseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E3713124064D55000B5E07 /* EditExerciseView.swift */; };
 		F0E371342407052E000B5E07 /* ExecuteExerciseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E371332407052E000B5E07 /* ExecuteExerciseView.swift */; };
+		F0E3716D240A35EC000B5E07 /* KeyboardGetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E3716C240A35EC000B5E07 /* KeyboardGetter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +49,7 @@
 		F0E371032404DEB5000B5E07 /* AppStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStore.swift; sourceTree = "<group>"; };
 		F0E3713124064D55000B5E07 /* EditExerciseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditExerciseView.swift; sourceTree = "<group>"; };
 		F0E371332407052E000B5E07 /* ExecuteExerciseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExecuteExerciseView.swift; sourceTree = "<group>"; };
+		F0E3716C240A35EC000B5E07 /* KeyboardGetter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardGetter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +117,7 @@
 		F05A40A923FD072400ABC8E2 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				F0E3716B240A35DE000B5E07 /* Helpers */,
 				F05A40BB23FDF62100ABC8E2 /* Exercise.swift */,
 				F05A40BD23FDF63900ABC8E2 /* Workout.swift */,
 				F05A40C123FE0AF400ABC8E2 /* AppState.swift */,
@@ -133,6 +136,14 @@
 				F05A403423FC9A4000ABC8E2 /* SceneDelegate.swift */,
 			);
 			path = Init;
+			sourceTree = "<group>";
+		};
+		F0E3716B240A35DE000B5E07 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				F0E3716C240A35EC000B5E07 /* KeyboardGetter.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -217,6 +228,7 @@
 				F0E3713224064D55000B5E07 /* EditExerciseView.swift in Sources */,
 				F0E371042404DEB5000B5E07 /* AppStore.swift in Sources */,
 				F0E371002404DD44000B5E07 /* AppAction.swift in Sources */,
+				F0E3716D240A35EC000B5E07 /* KeyboardGetter.swift in Sources */,
 				F05A403823FC9A4000ABC8E2 /* NgoFitnessTracker.xcdatamodeld in Sources */,
 				F0E371022404DD79000B5E07 /* AppReducer.swift in Sources */,
 				F05A40BE23FDF63900ABC8E2 /* Workout.swift in Sources */,
