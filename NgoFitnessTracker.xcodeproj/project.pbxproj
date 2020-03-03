@@ -26,6 +26,12 @@
 		F0E3713224064D55000B5E07 /* EditExerciseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E3713124064D55000B5E07 /* EditExerciseView.swift */; };
 		F0E371342407052E000B5E07 /* ExecuteExerciseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E371332407052E000B5E07 /* ExecuteExerciseView.swift */; };
 		F0E3716D240A35EC000B5E07 /* KeyboardGetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E3716C240A35EC000B5E07 /* KeyboardGetter.swift */; };
+		F0E371C1240DECB6000B5E07 /* CDExercise+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E371BB240DECB6000B5E07 /* CDExercise+CoreDataClass.swift */; };
+		F0E371C2240DECB6000B5E07 /* CDExercise+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E371BC240DECB6000B5E07 /* CDExercise+CoreDataProperties.swift */; };
+		F0E371C3240DECB6000B5E07 /* CDResult+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E371BD240DECB6000B5E07 /* CDResult+CoreDataClass.swift */; };
+		F0E371C4240DECB6000B5E07 /* CDResult+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E371BE240DECB6000B5E07 /* CDResult+CoreDataProperties.swift */; };
+		F0E371C5240DECB6000B5E07 /* CDWorkout+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E371BF240DECB6000B5E07 /* CDWorkout+CoreDataClass.swift */; };
+		F0E371C6240DECB6000B5E07 /* CDWorkout+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E371C0240DECB6000B5E07 /* CDWorkout+CoreDataProperties.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +56,12 @@
 		F0E3713124064D55000B5E07 /* EditExerciseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditExerciseView.swift; sourceTree = "<group>"; };
 		F0E371332407052E000B5E07 /* ExecuteExerciseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExecuteExerciseView.swift; sourceTree = "<group>"; };
 		F0E3716C240A35EC000B5E07 /* KeyboardGetter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardGetter.swift; sourceTree = "<group>"; };
+		F0E371BB240DECB6000B5E07 /* CDExercise+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDExercise+CoreDataClass.swift"; sourceTree = "<group>"; };
+		F0E371BC240DECB6000B5E07 /* CDExercise+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDExercise+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		F0E371BD240DECB6000B5E07 /* CDResult+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDResult+CoreDataClass.swift"; sourceTree = "<group>"; };
+		F0E371BE240DECB6000B5E07 /* CDResult+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDResult+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		F0E371BF240DECB6000B5E07 /* CDWorkout+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDWorkout+CoreDataClass.swift"; sourceTree = "<group>"; };
+		F0E371C0240DECB6000B5E07 /* CDWorkout+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDWorkout+CoreDataProperties.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +129,7 @@
 		F05A40A923FD072400ABC8E2 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				F0E371C7240DECCC000B5E07 /* Model */,
 				F0E3716B240A35DE000B5E07 /* Helpers */,
 				F05A40BB23FDF62100ABC8E2 /* Exercise.swift */,
 				F05A40BD23FDF63900ABC8E2 /* Workout.swift */,
@@ -144,6 +157,19 @@
 				F0E3716C240A35EC000B5E07 /* KeyboardGetter.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		F0E371C7240DECCC000B5E07 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				F0E371BB240DECB6000B5E07 /* CDExercise+CoreDataClass.swift */,
+				F0E371BC240DECB6000B5E07 /* CDExercise+CoreDataProperties.swift */,
+				F0E371BD240DECB6000B5E07 /* CDResult+CoreDataClass.swift */,
+				F0E371BE240DECB6000B5E07 /* CDResult+CoreDataProperties.swift */,
+				F0E371BF240DECB6000B5E07 /* CDWorkout+CoreDataClass.swift */,
+				F0E371C0240DECB6000B5E07 /* CDWorkout+CoreDataProperties.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -220,11 +246,16 @@
 				F05A403323FC9A4000ABC8E2 /* AppDelegate.swift in Sources */,
 				F05A40C423FE0C8D00ABC8E2 /* ContentView.swift in Sources */,
 				F05A40C223FE0AF400ABC8E2 /* AppState.swift in Sources */,
+				F0E371C4240DECB6000B5E07 /* CDResult+CoreDataProperties.swift in Sources */,
+				F0E371C6240DECB6000B5E07 /* CDWorkout+CoreDataProperties.swift in Sources */,
 				F05A403523FC9A4000ABC8E2 /* SceneDelegate.swift in Sources */,
+				F0E371C2240DECB6000B5E07 /* CDExercise+CoreDataProperties.swift in Sources */,
 				F05A40BC23FDF62100ABC8E2 /* Exercise.swift in Sources */,
 				F05A40C023FE04DC00ABC8E2 /* ExecuteWorkoutView.swift in Sources */,
 				F05A40B423FDF5F800ABC8E2 /* Modifiers.swift in Sources */,
 				F0E371342407052E000B5E07 /* ExecuteExerciseView.swift in Sources */,
+				F0E371C5240DECB6000B5E07 /* CDWorkout+CoreDataClass.swift in Sources */,
+				F0E371C3240DECB6000B5E07 /* CDResult+CoreDataClass.swift in Sources */,
 				F0E3713224064D55000B5E07 /* EditExerciseView.swift in Sources */,
 				F0E371042404DEB5000B5E07 /* AppStore.swift in Sources */,
 				F0E371002404DD44000B5E07 /* AppAction.swift in Sources */,
@@ -232,6 +263,7 @@
 				F05A403823FC9A4000ABC8E2 /* NgoFitnessTracker.xcdatamodeld in Sources */,
 				F0E371022404DD79000B5E07 /* AppReducer.swift in Sources */,
 				F05A40BE23FDF63900ABC8E2 /* Workout.swift in Sources */,
+				F0E371C1240DECB6000B5E07 /* CDExercise+CoreDataClass.swift in Sources */,
 				F0E370FC2404D811000B5E07 /* UpdateWorkoutView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

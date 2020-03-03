@@ -11,9 +11,30 @@ struct ContentView: View {
     @EnvironmentObject var store: AppStore
     @State private var newWorkout: String = ""
     @State private var addingNewWorkout = false
-    
+    @Environment(\.managedObjectContext) var managedObjectContext
+    @FetchRequest(entity: CDWorkout.entity(), sortDescriptors: []) var languages: FetchedResults<CDWorkout>
+
     var body: some View {
         NavigationView {
+
+//            VStack {
+//            Button(action: {
+//                let language = CDWorkout(context: self.managedObjectContext)
+//                language.id = .init()
+//                language.title = "WORKOUT EX"
+//                language.exercises = []
+//                do {
+//                    try self.managedObjectContext.save()
+//                } catch {
+//                    // handle the Core Data error
+//                }
+//            }) {
+//                Text("Insert example language")
+//            }
+//            List(languages, id: \.self) { language in
+//                Text(language.title ?? "Unknown")
+//            }
+//            }
             List {
                 ForEach(self.store.state.workouts.indices, id: \.self) { idx in
                     NavigationLink(destination: UpdateWorkoutView(workoutIdx: idx).environmentObject(self.store)) {
