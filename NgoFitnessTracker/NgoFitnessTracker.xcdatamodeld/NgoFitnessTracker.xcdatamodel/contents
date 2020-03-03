@@ -11,14 +11,18 @@
         <attribute name="reps" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="weight" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
     </entity>
+    <entity name="CDState" representedClassName="CDState" syncable="YES">
+        <relationship name="workouts" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDWorkout"/>
+    </entity>
     <entity name="CDWorkout" representedClassName="CDWorkout" syncable="YES">
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="title" optional="YES" attributeType="String"/>
         <relationship name="exercises" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="CDExercise"/>
     </entity>
     <elements>
-        <element name="CDWorkout" positionX="-27" positionY="18" width="128" height="88"/>
         <element name="CDExercise" positionX="18" positionY="63" width="128" height="118"/>
         <element name="CDResult" positionX="54" positionY="99" width="128" height="73"/>
+        <element name="CDWorkout" positionX="-27" positionY="18" width="128" height="88"/>
+        <element name="CDState" positionX="18" positionY="90" width="128" height="58"/>
     </elements>
 </model>

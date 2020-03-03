@@ -7,7 +7,9 @@
 //
 
 import Foundation
-
+import SwiftUI
 struct AppState {
+    
     var workouts: [Workout]
+//    var CDworkouts: FetchedResults<CDWorkout>
 }

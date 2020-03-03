@@ -12,7 +12,7 @@ struct ContentView: View {
     @State private var newWorkout: String = ""
     @State private var addingNewWorkout = false
     @Environment(\.managedObjectContext) var managedObjectContext
-    @FetchRequest(entity: CDWorkout.entity(), sortDescriptors: []) var languages: FetchedResults<CDWorkout>
+//    @FetchRequest(entity: CDWorkout.entity(), sortDescriptors: []) var languages: FetchedResults<CDWorkout>
 
     var body: some View {
         NavigationView {

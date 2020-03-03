@@ -7,13 +7,18 @@
 //
 
 import Foundation
+import SwiftUI
+import CoreData
 
 final class AppStore: ObservableObject {
     @Published private(set) var state: AppState
     
     init(state: AppState = .init(workouts: [Workout]())) {
         self.state = state
+        
     }
+    
+    
     
     public func dispatch(action: AppAction) {
         state = appReducer(state: state, action: action)
