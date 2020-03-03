@@ -32,8 +32,6 @@
 		F0E371C4240DECB6000B5E07 /* CDResult+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E371BE240DECB6000B5E07 /* CDResult+CoreDataProperties.swift */; };
 		F0E371C5240DECB6000B5E07 /* CDWorkout+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E371BF240DECB6000B5E07 /* CDWorkout+CoreDataClass.swift */; };
 		F0E371C6240DECB6000B5E07 /* CDWorkout+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E371C0240DECB6000B5E07 /* CDWorkout+CoreDataProperties.swift */; };
-		F0E371CE240DF8BD000B5E07 /* CDState+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E371CC240DF8BD000B5E07 /* CDState+CoreDataClass.swift */; };
-		F0E371CF240DF8BD000B5E07 /* CDState+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E371CD240DF8BD000B5E07 /* CDState+CoreDataProperties.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -64,8 +62,6 @@
 		F0E371BE240DECB6000B5E07 /* CDResult+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDResult+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		F0E371BF240DECB6000B5E07 /* CDWorkout+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDWorkout+CoreDataClass.swift"; sourceTree = "<group>"; };
 		F0E371C0240DECB6000B5E07 /* CDWorkout+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDWorkout+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		F0E371CC240DF8BD000B5E07 /* CDState+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDState+CoreDataClass.swift"; sourceTree = "<group>"; };
-		F0E371CD240DF8BD000B5E07 /* CDState+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDState+CoreDataProperties.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -172,8 +168,6 @@
 				F0E371BE240DECB6000B5E07 /* CDResult+CoreDataProperties.swift */,
 				F0E371BF240DECB6000B5E07 /* CDWorkout+CoreDataClass.swift */,
 				F0E371C0240DECB6000B5E07 /* CDWorkout+CoreDataProperties.swift */,
-				F0E371CC240DF8BD000B5E07 /* CDState+CoreDataClass.swift */,
-				F0E371CD240DF8BD000B5E07 /* CDState+CoreDataProperties.swift */,
 			);
 			path = "Core Data";
 			sourceTree = "<group>";
@@ -261,7 +255,6 @@
 				F05A40B423FDF5F800ABC8E2 /* Modifiers.swift in Sources */,
 				F0E371342407052E000B5E07 /* ExecuteExerciseView.swift in Sources */,
 				F0E371C5240DECB6000B5E07 /* CDWorkout+CoreDataClass.swift in Sources */,
-				F0E371CE240DF8BD000B5E07 /* CDState+CoreDataClass.swift in Sources */,
 				F0E371C3240DECB6000B5E07 /* CDResult+CoreDataClass.swift in Sources */,
 				F0E3713224064D55000B5E07 /* EditExerciseView.swift in Sources */,
 				F0E371042404DEB5000B5E07 /* AppStore.swift in Sources */,
@@ -269,7 +262,6 @@
 				F0E3716D240A35EC000B5E07 /* KeyboardGetter.swift in Sources */,
 				F05A403823FC9A4000ABC8E2 /* NgoFitnessTracker.xcdatamodeld in Sources */,
 				F0E371022404DD79000B5E07 /* AppReducer.swift in Sources */,
-				F0E371CF240DF8BD000B5E07 /* CDState+CoreDataProperties.swift in Sources */,
 				F05A40BE23FDF63900ABC8E2 /* Workout.swift in Sources */,
 				F0E371C1240DECB6000B5E07 /* CDExercise+CoreDataClass.swift in Sources */,
 				F0E370FC2404D811000B5E07 /* UpdateWorkoutView.swift in Sources */,
