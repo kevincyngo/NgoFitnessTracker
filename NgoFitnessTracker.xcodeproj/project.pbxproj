@@ -129,7 +129,7 @@
 		F05A40A923FD072400ABC8E2 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				F0E371C7240DECCC000B5E07 /* Model */,
+				F0E371C7240DECCC000B5E07 /* Core Data */,
 				F0E3716B240A35DE000B5E07 /* Helpers */,
 				F05A40BB23FDF62100ABC8E2 /* Exercise.swift */,
 				F05A40BD23FDF63900ABC8E2 /* Workout.swift */,
@@ -159,7 +159,7 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
-		F0E371C7240DECCC000B5E07 /* Model */ = {
+		F0E371C7240DECCC000B5E07 /* Core Data */ = {
 			isa = PBXGroup;
 			children = (
 				F0E371BB240DECB6000B5E07 /* CDExercise+CoreDataClass.swift */,
@@ -169,7 +169,7 @@
 				F0E371BF240DECB6000B5E07 /* CDWorkout+CoreDataClass.swift */,
 				F0E371C0240DECB6000B5E07 /* CDWorkout+CoreDataProperties.swift */,
 			);
-			path = Model;
+			path = "Core Data";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
