@@ -18,4 +18,6 @@ enum AppAction {
     case removeExercise(workoutIdx: Int, offsets: IndexSet)
     case updateResultsReps(workoutIdx: Int, exerciseIdx: Int, resultsIdx: Int, reps: Int)
     case updateResultsWeight(workoutIdx: Int, exerciseIdx: Int, resultsIdx: Int, weight: Int)
+    
+    case CDAddWorkout(workout: Workout)
 }

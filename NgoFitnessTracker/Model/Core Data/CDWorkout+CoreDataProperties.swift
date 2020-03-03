@@ -20,6 +20,10 @@ extension CDWorkout {
     @NSManaged public var title: String?
     @NSManaged public var id: UUID?
     @NSManaged public var exercises: NSSet?
+    
+    var wrappedTitle: String {
+        title ?? "Unknown Title"
+    }
 
 }
 

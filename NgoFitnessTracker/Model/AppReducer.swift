@@ -33,6 +33,8 @@ func appReducer(state: AppState, action: AppAction) -> AppState {
         state.workouts[workoutIdx].exercises[exerciseIdx].results[resultsIdx].reps = reps
     case .updateResultsWeight(let workoutIdx, let exerciseIdx, let resultsIdx, let weight):
         state.workouts[workoutIdx].exercises[exerciseIdx].results[resultsIdx].weight = weight
+    case .CDAddWorkout(let workout):
+        state.workouts.append(workout)
     }
     return state
 }

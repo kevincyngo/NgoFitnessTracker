@@ -12,42 +12,30 @@ struct ContentView: View {
     @State private var newWorkout: String = ""
     @State private var addingNewWorkout = false
     @Environment(\.managedObjectContext) var managedObjectContext
-//    @FetchRequest(entity: CDWorkout.entity(), sortDescriptors: []) var languages: FetchedResults<CDWorkout>
-
+    @FetchRequest(entity: CDWorkout.entity(), sortDescriptors: []) var languages: FetchedResults<CDWorkout>
+    
+    func loadCD() {
+        print(languages.count)
+        languages.forEach {language in
+            self.store.dispatch(action: .CDAddWorkout(workout: language.toWorkout()))
+        }
+    }
+    
     var body: some View {
         NavigationView {
-
-//            VStack {
-//            Button(action: {
-//                let language = CDWorkout(context: self.managedObjectContext)
-//                language.id = .init()
-//                language.title = "WORKOUT EX"
-//                language.exercises = []
-//                do {
-//                    try self.managedObjectContext.save()
-//                } catch {
-//                    // handle the Core Data error
-//                }
-//            }) {
-//                Text("Insert example language")
-//            }
-//            List(languages, id: \.self) { language in
-//                Text(language.title ?? "Unknown")
-//            }
-//            }
             List {
                 ForEach(self.store.state.workouts.indices, id: \.self) { idx in
                     NavigationLink(destination: UpdateWorkoutView(workoutIdx: idx).environmentObject(self.store)) {
                         Text(self.store.state.workouts[idx].title)
                     }
                 }
-                .onDelete(perform: self.delete)
-                .onMove(perform: self.move)
+                .onDelete(perform: self.deleteWorkout)
+                .onMove(perform: self.moveWorkout)
                 
                 if addingNewWorkout {
                     TextField("New Workout", text: $newWorkout, onCommit: {
                         if !self.newWorkout.isEmpty {
-                            self.store.dispatch(action: .addWorkout(workout: Workout(title: self.newWorkout, exercises: [])))
+                            self.addWorkout(title: self.newWorkout)
                         }
                         self.addingNewWorkout = false
                         self.newWorkout = ""
@@ -68,14 +56,28 @@ struct ContentView: View {
                 }
             )
         }.font(.system(size: 20))
-
+        .onAppear { self.loadCD() }
+        
     }
-    func delete(at offsets: IndexSet) {
+    func deleteWorkout(at offsets: IndexSet) {
         store.dispatch(action: .removeWorkout(offsets: offsets))
     }
     
-    func move(source: IndexSet, destination: Int) {
+    func moveWorkout(source: IndexSet, destination: Int) {
         store.dispatch(action: .moveWorkout(source: source, destination: destination))
+    }
+    
+    func addWorkout(title: String) {
+        store.dispatch(action: .addWorkout(workout: Workout(title: title, exercises: [])))
+        let CDworkout = CDWorkout(context: self.managedObjectContext)
+        CDworkout.id = .init()
+        CDworkout.title = title
+        CDworkout.exercises = []
+        do {
+            try self.managedObjectContext.save()
+        } catch {
+            // handle the Core Data error
+        }
     }
 }
 

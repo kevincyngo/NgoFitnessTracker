@@ -11,6 +11,7 @@ import SwiftUI
 import CoreData
 
 final class AppStore: ObservableObject {
+    @Environment(\.managedObjectContext) var managedObjectContext
     @Published private(set) var state: AppState
     
     init(state: AppState = .init(workouts: [Workout]())) {

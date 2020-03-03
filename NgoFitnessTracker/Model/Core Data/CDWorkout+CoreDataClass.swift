@@ -12,5 +12,8 @@ import CoreData
 
 @objc(CDWorkout)
 public class CDWorkout: NSManagedObject {
-
+    
+    func toWorkout() -> Workout {
+        return Workout(title: self.wrappedTitle, exercises: [])
+    }
 }
