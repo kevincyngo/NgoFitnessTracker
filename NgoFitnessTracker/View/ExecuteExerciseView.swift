@@ -71,9 +71,6 @@ struct ExecuteExerciseView: View {
                             .padding()
                             .background(Color.secondary)
                         }.keyboardType(.numberPad)
-                        .onTapGesture {
-                            self.endEditing()
-                        }
                     }
                 }
                 
@@ -86,6 +83,8 @@ struct ExecuteExerciseView: View {
                         .foregroundColor(Color.white)
                         .cornerRadius(20)
                 }
+            }.onTapGesture {
+                self.endEditing()
             }
             .navigationBarTitle("\(self.exercise.name)")
         }
