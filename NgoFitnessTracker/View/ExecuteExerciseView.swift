@@ -9,12 +9,13 @@
 import SwiftUI
 
 extension UIApplication {
-    func endEditing() {
+    func closeKeyboard() {
         sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
 }
 
 struct ExecuteExerciseView: View {
+    @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var store: AppStore
     @State var workoutIdx: Int
     @State var exerciseIdx: Int
@@ -27,18 +28,6 @@ struct ExecuteExerciseView: View {
         return Exercise(name: "", sets: 1, reps: 1, results: [])
     }
     
-    
-    
-    func updateReps(resultsIdx: Int, reps: String) {
-        let intReps = Int(reps) ?? 0
-        store.dispatch(action: .updateResultsReps(workoutIdx: self.workoutIdx, exerciseIdx: self.exerciseIdx, resultsIdx: resultsIdx, reps: intReps))
-    }
-    
-    func updateWeights(resultsIdx: Int, weight: String) {
-        let intWeights = Int(weight) ?? 0
-        store.dispatch(action: .updateResultsWeight(workoutIdx: self.workoutIdx, exerciseIdx: self.exerciseIdx, resultsIdx: resultsIdx, weight: intWeights))
-    }
-    
     var body: some View {
         GeometryReader {geo in
             VStack {
@@ -49,6 +38,7 @@ struct ExecuteExerciseView: View {
                         Text("Reps").frame(width: geo.size.width/5)
                         Spacer()
                         Text("Weight").frame(width: geo.size.width/5)
+                        Spacer()
                     }
                     ForEach(self.exercise.results.indices, id: \.self) {idx in
                         HStack {
@@ -56,48 +46,68 @@ struct ExecuteExerciseView: View {
                             Spacer()
                             TextField("\(self.exercise.strReps)", text: Binding(
                                 get: {
-                                    (String(self.store.state.workouts[self.workoutIdx].exercises[self.exerciseIdx].results[idx].reps) == "-1" ? "" : String(self.store.state.workouts[self.workoutIdx].exercises[self.exerciseIdx].results[idx].reps))
+                                    (String(self.exercise.results[idx].reps) == "-1" ? "" : String(self.exercise.results[idx].reps))
                             }, set: {
                                 return self.updateReps(resultsIdx: idx, reps: $0)
                             }
                                 
                             )).frame(width: geo.size.width/5)
-                            .padding()
-                            .background(Color.secondary)
+                                //                            .padding()
+                                .background(Color.secondary)
                             Spacer()
                             TextField("lbs", text: Binding(
                                 get: {
-                                    String(self.store.state.workouts[self.workoutIdx].exercises[self.exerciseIdx].results[idx].weight) == "-1" ? "" : String(self.store.state.workouts[self.workoutIdx].exercises[self.exerciseIdx].results[idx].weight)
+                                    String(self.exercise.results[idx].weight) == "-1" ? "" : String(self.exercise.results[idx].weight)
                             }, set: {
                                 newValue in return self.updateWeights(resultsIdx: idx, weight: newValue)
                             }
                                 
                             )).frame(width: geo.size.width/5)
-                            .padding()
-                            .background(Color.secondary)
+                                //                            .padding()
+                                .background(Color.secondary)
+                            
+                            Spacer()
+                            
                         }.keyboardType(.numberPad)
                     }
                 }
-                
                 Button(action: {
-                    print("update")
+                    self.updateCompletedSetsAndReturn()
                 }) {
                     Text("Update")
-                        .padding(30)
-                        .background(Color.blue)
-                        .foregroundColor(Color.white)
-                        .cornerRadius(20)
+                        .modifier(ActionButton())
                 }
             }.onTapGesture {
-                self.endEditing()
+                self.closeKeyboard()
             }
             .navigationBarTitle("\(self.exercise.name)")
         }
-        
-        
     }
-    private func endEditing() {
-        UIApplication.shared.endEditing()
+    
+    func updateCompletedSetsAndReturn() {
+        var setsCompleted = 0
+        for result in self.exercise.results {
+            if (result.reps >= 0 && result.weight >= 0) {
+                setsCompleted += 1
+            }
+        }
+        self.completedSets[self.exerciseIdx] = setsCompleted
+        self.presentationMode.wrappedValue.dismiss()
+    }
+    
+    
+    func updateReps(resultsIdx: Int, reps: String) {
+        let intReps = Int(reps) ?? -1
+        store.dispatch(action: .updateResultsReps(workoutIdx: self.workoutIdx, exerciseIdx: self.exerciseIdx, resultsIdx: resultsIdx, reps: intReps))
+    }
+    
+    func updateWeights(resultsIdx: Int, weight: String) {
+        let intWeights = Int(weight) ?? -1
+        store.dispatch(action: .updateResultsWeight(workoutIdx: self.workoutIdx, exerciseIdx: self.exerciseIdx, resultsIdx: resultsIdx, weight: intWeights))
+    }
+    
+    private func closeKeyboard() {
+        UIApplication.shared.closeKeyboard()
     }
 }
 

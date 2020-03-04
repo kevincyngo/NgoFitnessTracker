@@ -9,11 +9,13 @@
 import Foundation
 import SwiftUI
 
-struct ButtonModifier: ViewModifier {
+struct ActionButton: ViewModifier {
     func body(content: Content) -> some View {
         content
-            .padding()
+            .padding(30)
             .background(Color.blue)
+            .foregroundColor(Color.white)
+            .cornerRadius(20)
         
     }
 }

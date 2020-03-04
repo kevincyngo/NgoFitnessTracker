@@ -21,41 +21,48 @@ struct EditExerciseView: View {
     @Binding var isPresented: Bool
     
     var body: some View {
-        VStack {
+        NavigationView {
             VStack {
-                Form {
-                    Section(header: Text("Exercise Title").font(.headline)) {
-                        TextField("Enter exercise title", text: $name)
+                VStack {
+                    Form {
+                        Section(header: Text("Exercise Title").font(.headline)) {
+                            TextField("Enter exercise title", text: $name)
+                                .padding(.vertical)
+                        }
+                        Section(header: Text("Sets: \(Int(sets))").font(.headline)) {
+                            Slider(value: $sets, in: 1...20, step: 1)
                             .padding(.vertical)
-                    }
-                    Section(header: Text("Sets: \(Int(sets))").font(.headline)) {
-                        Slider(value: $sets, in: 1...20, step: 1)
-                        .padding(.vertical)
-                    }
-                    Section(header: Text("Reps \(Int(reps))").font(.headline)) {
-                        Slider(value: $reps, in: 1...20, step: 1)
-                        .padding(.vertical)
-                    }
-                }.padding(.trailing)
-            }
-            Button(action: {
-                self.saveExerciseAndReturn()
-            }) {
-                Text("Save Exercise")
-                    .padding(30)
-                    .background(Color.blue)
-                    .foregroundColor(Color.white)
-                    .cornerRadius(20)
-            }
-            Spacer()
-        }.padding(.leading)
-        .navigationBarTitle(exerciseIdx >= 0 ? "Edit Exercise" : "Add Exercise")
+                        }
+                        Section(header: Text("Reps \(Int(reps))").font(.headline)) {
+                            Slider(value: $reps, in: 1...20, step: 1)
+                            .padding(.vertical)
+                        }
+                    }.padding(.trailing)
+                }
+                Button(action: {
+                    self.saveExerciseAndReturn()
+                }) {
+                    Text("Save Exercise")
+                        .modifier(ActionButton())
+                }
+                Spacer()
+            }.padding(.leading)
+            .navigationBarTitle(exerciseIdx >= 0 ? "Edit Exercise" : "Add Exercise")
+        }
+
     }
     
     func saveExerciseAndReturn() {
         let results = Array(repeating: Results(reps:-1, weight:-1), count: Int(self.sets))
-        let exercise = Exercise(name: self.name, sets: self.sets, reps: self.reps, results: results)
+        var exercise: Exercise
+        
+        if self.exerciseIdx >= 0 {
+            exercise = Exercise(id: self.store.state.workouts[self.workoutIdx].exercises[self.exerciseIdx].id, name: self.name, sets: self.sets, reps: self.reps, results: results)
+        } else {
+            exercise = Exercise(name: self.name, sets: self.sets, reps: self.reps, results: results)
+        }
         self.store.dispatch(action: .updateExercise(workoutIdx: self.workoutIdx, exercise: exercise, exerciseIdx: self.exerciseIdx))
+        CDSaveExercise(workoutID: self.store.state.workouts[self.workoutIdx].id, exercise: exercise)
         self.isPresented = false
     }
 }

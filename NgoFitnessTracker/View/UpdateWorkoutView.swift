@@ -46,10 +46,7 @@ struct UpdateWorkoutView: View {
             }
             NavigationLink(destination: ExecuteWorkoutView(workoutIdx: self.workoutIdx, completedSets: [Int](repeating: 0, count: self.workout.exercises.count)).environmentObject(self.store)) {
                 Text("Start Workout")
-                    .padding(30)
-                    .background(Color.blue)
-                    .foregroundColor(Color.white)
-                    .cornerRadius(20)
+                    .modifier(ActionButton())
             }
                 .navigationBarTitle("\(workout.title)")
                 .navigationBarItems(trailing:
@@ -72,9 +69,9 @@ struct UpdateWorkoutView: View {
                         EditExerciseView(sets: 1, reps: 1, name: "", workoutIdx: self.workoutIdx, exerciseIdx: -1, isPresented: self.$showingUpdateExerciseView).environmentObject(self.store)
                     } else {
                         EditExerciseView(
-                            sets: self.store.state.workouts[self.workoutIdx].exercises[self.exerciseIndex].sets,
-                            reps: self.store.state.workouts[self.workoutIdx].exercises[self.exerciseIndex].reps,
-                            name: self.store.state.workouts[self.workoutIdx].exercises[self.exerciseIndex].name,
+                            sets: self.workout.exercises[self.exerciseIndex].sets,
+                            reps: self.workout.exercises[self.exerciseIndex].reps,
+                            name: self.workout.exercises[self.exerciseIndex].name,
                             workoutIdx: self.workoutIdx, exerciseIdx: self.exerciseIndex, isPresented: self.$showingUpdateExerciseView).environmentObject(self.store)
                     }
                     

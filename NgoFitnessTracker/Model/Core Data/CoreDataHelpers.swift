@@ -41,7 +41,37 @@ func fetchCoreData() -> [Workout] {
 }
 
 func CDSaveWorkout(workout: [Workout]) {}
-func CDSaveExercise(workout: [Workout]) {}
+func CDSaveExercise(workoutID: UUID, exercise: Exercise) {
+    //if found, update existing
+    let context = getManagedObjectContext()
+    var results: [CDWorkout] = []
+    context.performAndWait {
+        let fetchRequest = NSFetchRequest<CDWorkout>(entityName: EntityType.workout.rawValue)
+        fetchRequest.predicate = NSPredicate(format: "id == %@", workoutID as CVarArg)
+        fetchRequest.fetchLimit = 1
+        results = try! fetchRequest.execute()
+        for cdWorkout in results  {
+            for cdExercise in cdWorkout.exercises!.allObjects as! [CDExercise] {
+                if cdExercise.id == exercise.id {
+                    cdExercise.setValue(exercise.name, forKey: "name")
+                    cdExercise.setValue(exercise.reps, forKey: "reps")
+                    cdExercise.setValue(exercise.sets, forKey: "sets")
+                    trySave(context: context)
+                    print("existing")
+                    return
+                }
+            }
+            let cdExercise = CDExercise(context: context)
+            cdExercise.id = exercise.id
+            cdExercise.name = exercise.name
+            cdExercise.reps = exercise.reps
+            cdExercise.sets = exercise.sets
+            cdWorkout.addToExercises(cdExercise)
+        }
+    }
+    trySave(context: context)
+    
+}
 func CDSaveResults(workout: [Workout]) {}
 
 
@@ -76,6 +106,14 @@ func saveToCoreData(workouts: [Workout]) {
         try? moc.save()
     }
     
+}
+
+
+func trySave(context: NSManagedObjectContext) {
+    if context.hasChanges {
+        print("saving")
+        try? context.save()
+    }
 }
 
 func getManagedObjectContext() -> NSManagedObjectContext{

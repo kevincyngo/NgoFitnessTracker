@@ -36,15 +36,10 @@ struct ExecuteWorkoutView: View {
                 }
             }
             Button(action: {
-                print("Complete Workout")
-                self.presentationMode.wrappedValue.dismiss()
-                saveToCoreData(workouts: self.store.state.workouts)
+                self.updateWorkoutsAndReturn()
             }) {
                 Text("Complete Workout")
-                    .padding(30)
-                    .background(Color.blue)
-                    .foregroundColor(Color.white)
-                    .cornerRadius(20)
+                    .modifier(ActionButton())
             }
             Spacer()
                 .navigationBarBackButtonHidden(true)
@@ -66,6 +61,10 @@ struct ExecuteWorkoutView: View {
             
             
         }
+    }
+    func updateWorkoutsAndReturn() {
+        self.presentationMode.wrappedValue.dismiss()
+        saveToCoreData(workouts: self.store.state.workouts)
     }
 }
 
