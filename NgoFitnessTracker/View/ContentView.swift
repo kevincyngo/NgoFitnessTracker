@@ -49,7 +49,7 @@ struct ContentView: View {
                 }
             )
         }.font(.system(size: 20))
-        .onAppear { self.loadCD() }
+        .onAppear { self.loadFromCoreData() }
         
     }
     func deleteWorkout(at offsets: IndexSet) {
@@ -76,22 +76,15 @@ struct ContentView: View {
     
     func addWorkout(title: String) {
         store.dispatch(action: .addWorkout(workout: Workout(title: title, exercises: [])))
-//        let CDworkout = CDWorkout(context: self.managedObjectContext)
-//        CDworkout.id = .init()
-//        CDworkout.title = title
-//        CDworkout.exercises = []
-//        do {
-//            try self.managedObjectContext.save()
-//        } catch {
-//            // handle the Core Data error
-//        }
     }
     
-    func loadCD() {
+    func loadFromCoreData() {
         let workouts = fetchCoreData()
         for workout in workouts {
             self.store.dispatch(action: .addWorkout(workout: workout))
+            print(checkRecordExists(entity: EntityType.workout.rawValue, uniqueIdentity: workout.id))
         }
+        
     }
     
     

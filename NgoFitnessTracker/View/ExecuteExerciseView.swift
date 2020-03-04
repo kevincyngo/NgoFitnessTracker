@@ -21,8 +21,13 @@ struct ExecuteExerciseView: View {
     @Binding var completedSets: [Int]
     
     var exercise: Exercise {
-        store.state.workouts[workoutIdx].exercises[exerciseIdx]
+        if(exerciseIdx < store.state.workouts[workoutIdx].exercises.count) {
+            return store.state.workouts[workoutIdx].exercises[exerciseIdx]
+        }
+        return Exercise(name: "", sets: 1, reps: 1, results: [])
     }
+    
+    
     
     func updateReps(resultsIdx: Int, reps: String) {
         let intReps = Int(reps) ?? 0

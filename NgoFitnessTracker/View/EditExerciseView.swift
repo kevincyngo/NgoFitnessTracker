@@ -40,6 +40,9 @@ struct EditExerciseView: View {
             }
             Button(action: {
                 let results = Array(repeating: Results(reps:-1, weight:-1), count: Int(self.sets))
+                for res in results {
+                    print(res.reps)
+                }
                 let exercise = Exercise(name: self.name, sets: self.sets, reps: self.reps, results: results)
                 self.store.dispatch(action: .updateExercise(workoutIdx: self.workoutIdx, exercise: exercise, exerciseIdx: self.exerciseIdx))
                 self.isPresented = false

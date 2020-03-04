@@ -16,7 +16,10 @@ struct ExecuteWorkoutView: View {
     @State var isExitingEarly = false
     
     var workout: Workout {
-        store.state.workouts[workoutIdx]
+        if(workoutIdx < store.state.workouts.count) {
+            return store.state.workouts[workoutIdx]
+        }
+        return Workout(title: "", exercises: [])
     }
     
     var body: some View {
