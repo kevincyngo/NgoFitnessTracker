@@ -40,9 +40,16 @@ func fetchCoreData() -> [Workout] {
     return workouts
 }
 
-func CDSaveWorkout(workout: [Workout]) {}
+func CDSaveWorkout(workout: Workout) {
+    let context = getManagedObjectContext()
+    let cdWorkout = CDWorkout(context: context)
+    cdWorkout.id = workout.id
+    cdWorkout.title = workout.title
+    cdWorkout.exercises = []
+    trySave(context: context)
+}
+
 func CDSaveExercise(workoutID: UUID, exercise: Exercise) {
-    //if found, update existing
     let context = getManagedObjectContext()
     var results: [CDWorkout] = []
     context.performAndWait {
@@ -57,7 +64,6 @@ func CDSaveExercise(workoutID: UUID, exercise: Exercise) {
                     cdExercise.setValue(exercise.reps, forKey: "reps")
                     cdExercise.setValue(exercise.sets, forKey: "sets")
                     trySave(context: context)
-                    print("existing")
                     return
                 }
             }
@@ -72,26 +78,26 @@ func CDSaveExercise(workoutID: UUID, exercise: Exercise) {
     trySave(context: context)
     
 }
-func CDSaveResults(workout: [Workout]) {}
+func CDSaveResults(workoutID: UUID, exerciseID: UUID, result: Results) {}
 
 
 func saveToCoreData(workouts: [Workout]) {
-    let moc = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-    moc.performAndWait {
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    context.performAndWait {
         workouts.forEach { workout in
             if (!checkRecordExists(entity: EntityType.workout.rawValue, uniqueIdentity: workout.id)) {
-                let cdWorkout = CDWorkout(context: moc)
+                let cdWorkout = CDWorkout(context: context)
                 cdWorkout.id = workout.id
                 cdWorkout.title = workout.title
                 workout.exercises.forEach {exercise in
-                    let cdExercise = CDExercise(context: moc)
+                    let cdExercise = CDExercise(context: context)
                     cdExercise.id = exercise.id
                     cdExercise.name = exercise.name
                     cdExercise.reps = exercise.reps
                     cdExercise.sets = exercise.sets
                     
                     exercise.results.forEach {result in
-                        let cdResult = CDResult(context: moc)
+                        let cdResult = CDResult(context: context)
                         cdResult.id = result.id
                         cdResult.reps = Int16(result.reps)
                         cdResult.weight = Int16(result.weight)
@@ -102,16 +108,13 @@ func saveToCoreData(workouts: [Workout]) {
             }
         }
     }
-    if moc.hasChanges {
-        try? moc.save()
-    }
+    trySave(context: context)
     
 }
 
 
 func trySave(context: NSManagedObjectContext) {
     if context.hasChanges {
-        print("saving")
         try? context.save()
     }
 }

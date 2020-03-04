@@ -75,7 +75,9 @@ struct ContentView: View {
     }
     
     func addWorkout(title: String) {
-        store.dispatch(action: .addWorkout(workout: Workout(title: title, exercises: [])))
+        let workout = Workout(title: title, exercises: [])
+        store.dispatch(action: .addWorkout(workout: workout))
+        CDSaveWorkout(workout: workout)
     }
     
     func loadFromCoreData() {
