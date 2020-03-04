@@ -39,13 +39,7 @@ struct EditExerciseView: View {
                 }.padding(.trailing)
             }
             Button(action: {
-                let results = Array(repeating: Results(reps:-1, weight:-1), count: Int(self.sets))
-                for res in results {
-                    print(res.reps)
-                }
-                let exercise = Exercise(name: self.name, sets: self.sets, reps: self.reps, results: results)
-                self.store.dispatch(action: .updateExercise(workoutIdx: self.workoutIdx, exercise: exercise, exerciseIdx: self.exerciseIdx))
-                self.isPresented = false
+                self.saveExerciseAndReturn()
             }) {
                 Text("Save Exercise")
                     .padding(30)
@@ -56,6 +50,13 @@ struct EditExerciseView: View {
             Spacer()
         }.padding(.leading)
         .navigationBarTitle(exerciseIdx >= 0 ? "Edit Exercise" : "Add Exercise")
+    }
+    
+    func saveExerciseAndReturn() {
+        let results = Array(repeating: Results(reps:-1, weight:-1), count: Int(self.sets))
+        let exercise = Exercise(name: self.name, sets: self.sets, reps: self.reps, results: results)
+        self.store.dispatch(action: .updateExercise(workoutIdx: self.workoutIdx, exercise: exercise, exerciseIdx: self.exerciseIdx))
+        self.isPresented = false
     }
 }
 
