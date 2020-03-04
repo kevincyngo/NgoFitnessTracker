@@ -21,7 +21,7 @@ struct ExecuteExerciseView: View {
     @Binding var completedSets: [Int]
     
     var exercise: Exercise {
-        if(exerciseIdx < store.state.workouts[workoutIdx].exercises.count) {
+        if(workoutIdx < store.state.workouts.count && exerciseIdx < store.state.workouts[workoutIdx].exercises.count) {
             return store.state.workouts[workoutIdx].exercises[exerciseIdx]
         }
         return Exercise(name: "", sets: 1, reps: 1, results: [])

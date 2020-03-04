@@ -9,6 +9,7 @@
         <relationship name="workout" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDWorkout" inverseName="exercises" inverseEntity="CDWorkout"/>
     </entity>
     <entity name="CDResult" representedClassName="CDResult" syncable="YES">
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="reps" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="weight" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="exercise" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDExercise" inverseName="results" inverseEntity="CDExercise"/>
@@ -20,7 +21,7 @@
     </entity>
     <elements>
         <element name="CDExercise" positionX="18" positionY="63" width="128" height="133"/>
-        <element name="CDResult" positionX="54" positionY="99" width="128" height="88"/>
+        <element name="CDResult" positionX="54" positionY="99" width="128" height="103"/>
         <element name="CDWorkout" positionX="-27" positionY="18" width="128" height="88"/>
     </elements>
 </model>

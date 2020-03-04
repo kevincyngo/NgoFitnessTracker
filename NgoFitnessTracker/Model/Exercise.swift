@@ -9,7 +9,7 @@
 import Foundation
 
 struct Exercise: Identifiable {
-    let id: UUID = .init()
+    let id: UUID
     var name: String
     var sets: Double
     var reps: Double
@@ -22,7 +22,21 @@ struct Exercise: Identifiable {
         String(Int(reps))
     }
     
+    init(id: UUID, name: String, sets: Double, reps: Double, results: [Results]) {
+        self.id = id
+        self.name = name
+        self.sets = sets
+        self.reps = reps
+        self.results = results
+    }
     
+    init(name: String, sets: Double, reps: Double, results: [Results]) {
+        self.id = .init()
+        self.name = name
+        self.sets = sets
+        self.reps = reps
+        self.results = results
+    }
     
 }
 

@@ -82,7 +82,6 @@ struct ContentView: View {
         let workouts = fetchCoreData()
         for workout in workouts {
             self.store.dispatch(action: .addWorkout(workout: workout))
-            print(checkRecordExists(entity: EntityType.workout.rawValue, uniqueIdentity: workout.id))
         }
         
     }

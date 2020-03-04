@@ -17,7 +17,7 @@ extension CDExercise {
         return NSFetchRequest<CDExercise>(entityName: "CDExercise")
     }
 
-    @NSManaged public var id: UUID?
+    @NSManaged public var id: UUID
     @NSManaged public var name: String?
     @NSManaged public var sets: Double
     @NSManaged public var reps: Double
