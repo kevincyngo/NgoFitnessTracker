@@ -11,10 +11,11 @@ import SwiftUI
 
 struct EditExerciseView: View {
     @EnvironmentObject var store: AppStore
+    @Environment(\.managedObjectContext) var managedObjectContext
     @State var sets: Double
     @State var reps: Double
     @State var name: String
-//    @State var results: [Results]
+
     @State var workoutIdx: Int
     @State var exerciseIdx: Int
     @Binding var isPresented: Bool
@@ -39,9 +40,6 @@ struct EditExerciseView: View {
             }
             Button(action: {
                 let results = Array(repeating: Results(reps:-1, weight:-1), count: Int(self.sets))
-                for result in results {
-                    print("Reps:\(result.reps) // Weight:\(result.weight)")
-                }
                 let exercise = Exercise(name: self.name, sets: self.sets, reps: self.reps, results: results)
                 self.store.dispatch(action: .updateExercise(workoutIdx: self.workoutIdx, exercise: exercise, exerciseIdx: self.exerciseIdx))
                 self.isPresented = false

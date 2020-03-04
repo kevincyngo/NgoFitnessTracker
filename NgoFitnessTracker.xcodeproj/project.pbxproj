@@ -19,6 +19,7 @@
 		F05A40C023FE04DC00ABC8E2 /* ExecuteWorkoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F05A40BF23FE04DC00ABC8E2 /* ExecuteWorkoutView.swift */; };
 		F05A40C223FE0AF400ABC8E2 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = F05A40C123FE0AF400ABC8E2 /* AppState.swift */; };
 		F05A40C423FE0C8D00ABC8E2 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F05A40C323FE0C8D00ABC8E2 /* ContentView.swift */; };
+		F08282EE240F1C450014B9A4 /* CoreDataHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = F08282ED240F1C450014B9A4 /* CoreDataHelpers.swift */; };
 		F0E370FC2404D811000B5E07 /* UpdateWorkoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E370FB2404D811000B5E07 /* UpdateWorkoutView.swift */; };
 		F0E371002404DD44000B5E07 /* AppAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E370FF2404DD44000B5E07 /* AppAction.swift */; };
 		F0E371022404DD79000B5E07 /* AppReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E371012404DD79000B5E07 /* AppReducer.swift */; };
@@ -49,6 +50,7 @@
 		F05A40BF23FE04DC00ABC8E2 /* ExecuteWorkoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExecuteWorkoutView.swift; sourceTree = "<group>"; };
 		F05A40C123FE0AF400ABC8E2 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		F05A40C323FE0C8D00ABC8E2 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		F08282ED240F1C450014B9A4 /* CoreDataHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataHelpers.swift; sourceTree = "<group>"; };
 		F0E370FB2404D811000B5E07 /* UpdateWorkoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateWorkoutView.swift; sourceTree = "<group>"; };
 		F0E370FF2404DD44000B5E07 /* AppAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAction.swift; sourceTree = "<group>"; };
 		F0E371012404DD79000B5E07 /* AppReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppReducer.swift; sourceTree = "<group>"; };
@@ -168,6 +170,7 @@
 				F0E371BE240DECB6000B5E07 /* CDResult+CoreDataProperties.swift */,
 				F0E371BF240DECB6000B5E07 /* CDWorkout+CoreDataClass.swift */,
 				F0E371C0240DECB6000B5E07 /* CDWorkout+CoreDataProperties.swift */,
+				F08282ED240F1C450014B9A4 /* CoreDataHelpers.swift */,
 			);
 			path = "Core Data";
 			sourceTree = "<group>";
@@ -253,6 +256,7 @@
 				F05A40BC23FDF62100ABC8E2 /* Exercise.swift in Sources */,
 				F05A40C023FE04DC00ABC8E2 /* ExecuteWorkoutView.swift in Sources */,
 				F05A40B423FDF5F800ABC8E2 /* Modifiers.swift in Sources */,
+				F08282EE240F1C450014B9A4 /* CoreDataHelpers.swift in Sources */,
 				F0E371342407052E000B5E07 /* ExecuteExerciseView.swift in Sources */,
 				F0E371C5240DECB6000B5E07 /* CDWorkout+CoreDataClass.swift in Sources */,
 				F0E371C3240DECB6000B5E07 /* CDResult+CoreDataClass.swift in Sources */,

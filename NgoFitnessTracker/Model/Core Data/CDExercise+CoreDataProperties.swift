@@ -23,6 +23,11 @@ extension CDExercise {
     @NSManaged public var reps: Double
     @NSManaged public var results: NSSet?
 
+    
+    var wrappedName: String {
+        name ?? "Unknown Exercise"
+    }
+    
 }
 
 // MARK: Generated accessors for results

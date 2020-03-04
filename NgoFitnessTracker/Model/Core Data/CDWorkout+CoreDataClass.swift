@@ -14,6 +14,6 @@ import CoreData
 public class CDWorkout: NSManagedObject {
     
     func toWorkout() -> Workout {
-        return Workout(title: self.wrappedTitle, exercises: [])
+        return Workout(title: self.wrappedTitle, exercises: [Exercise(name: "Bench", sets: 5, reps: 5, results: []), Exercise(name: "Deadlift", sets: 10, reps: 10, results: [])])
     }
 }

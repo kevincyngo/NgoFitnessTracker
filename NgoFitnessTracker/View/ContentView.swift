@@ -12,14 +12,7 @@ struct ContentView: View {
     @State private var newWorkout: String = ""
     @State private var addingNewWorkout = false
     @Environment(\.managedObjectContext) var managedObjectContext
-    @FetchRequest(entity: CDWorkout.entity(), sortDescriptors: []) var languages: FetchedResults<CDWorkout>
-    
-    func loadCD() {
-        print(languages.count)
-        languages.forEach {language in
-            self.store.dispatch(action: .CDAddWorkout(workout: language.toWorkout()))
-        }
-    }
+    @FetchRequest(entity: CDWorkout.entity(), sortDescriptors: []) var CDworkouts: FetchedResults<CDWorkout>
     
     var body: some View {
         NavigationView {
@@ -61,24 +54,48 @@ struct ContentView: View {
     }
     func deleteWorkout(at offsets: IndexSet) {
         store.dispatch(action: .removeWorkout(offsets: offsets))
-    }
-    
-    func moveWorkout(source: IndexSet, destination: Int) {
-        store.dispatch(action: .moveWorkout(source: source, destination: destination))
-    }
-    
-    func addWorkout(title: String) {
-        store.dispatch(action: .addWorkout(workout: Workout(title: title, exercises: [])))
-        let CDworkout = CDWorkout(context: self.managedObjectContext)
-        CDworkout.id = .init()
-        CDworkout.title = title
-        CDworkout.exercises = []
+        for index in offsets {
+            let wo = CDworkouts[index]
+            managedObjectContext.delete(wo)
+        }
         do {
-            try self.managedObjectContext.save()
+            try managedObjectContext.save()
         } catch {
             // handle the Core Data error
         }
     }
+    
+    func moveWorkout(source: IndexSet, destination: Int) {
+        store.dispatch(action: .moveWorkout(source: source, destination: destination))
+        
+        for index in source {
+            print(index)
+        }
+        print(destination)
+    }
+    
+    func addWorkout(title: String) {
+        store.dispatch(action: .addWorkout(workout: Workout(title: title, exercises: [])))
+//        let CDworkout = CDWorkout(context: self.managedObjectContext)
+//        CDworkout.id = .init()
+//        CDworkout.title = title
+//        CDworkout.exercises = []
+//        do {
+//            try self.managedObjectContext.save()
+//        } catch {
+//            // handle the Core Data error
+//        }
+    }
+    
+    func loadCD() {
+        let workouts = fetchCoreData()
+        for workout in workouts {
+            self.store.dispatch(action: .addWorkout(workout: workout))
+        }
+    }
+    
+    
+    
 }
 
 //struct ContentView_Previews: PreviewProvider {

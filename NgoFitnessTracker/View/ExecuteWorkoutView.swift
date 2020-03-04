@@ -35,6 +35,7 @@ struct ExecuteWorkoutView: View {
             Button(action: {
                 print("Complete Workout")
                 self.presentationMode.wrappedValue.dismiss()
+                saveToCoreData(workouts: self.store.state.workouts)
             }) {
                 Text("Complete Workout")
                     .padding(30)

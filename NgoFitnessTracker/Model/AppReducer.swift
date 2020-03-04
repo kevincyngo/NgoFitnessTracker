@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import SwiftUI
+import CoreData
 
 //Reducers takes an action and current state and returns a new state
 func appReducer(state: AppState, action: AppAction) -> AppState {
@@ -25,16 +27,21 @@ func appReducer(state: AppState, action: AppAction) -> AppState {
         state.workouts.remove(atOffsets: offsets)
     case .moveWorkout(let source, let destination):
         state.workouts.move(fromOffsets: source, toOffset: destination)
+        
+        
     case .moveExercise(let workoutIdx, let source, let destination):
         state.workouts[workoutIdx].exercises.move(fromOffsets: source, toOffset: destination)
     case .removeExercise(let workoutIdx, let offsets):
         state.workouts[workoutIdx].exercises.remove(atOffsets: offsets)
+    
+    
     case .updateResultsReps(let workoutIdx, let exerciseIdx, let resultsIdx, let reps):
         state.workouts[workoutIdx].exercises[exerciseIdx].results[resultsIdx].reps = reps
     case .updateResultsWeight(let workoutIdx, let exerciseIdx, let resultsIdx, let weight):
         state.workouts[workoutIdx].exercises[exerciseIdx].results[resultsIdx].weight = weight
-    case .CDAddWorkout(let workout):
-        state.workouts.append(workout)
+
     }
     return state
 }
+
+

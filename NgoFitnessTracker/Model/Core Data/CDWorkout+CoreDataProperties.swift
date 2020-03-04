@@ -24,6 +24,11 @@ extension CDWorkout {
     var wrappedTitle: String {
         title ?? "Unknown Title"
     }
+    
+    var exercisesArray: [CDExercise] {
+        let set = exercises as? Set<CDExercise> ?? []
+        return Array(set)
+    }
 
 }
 
