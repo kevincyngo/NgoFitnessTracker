@@ -40,21 +40,3 @@ struct Exercise: Identifiable {
     
 }
 
-struct Results: Identifiable {
-    let id: UUID
-    var reps: Int
-    var weight: Int
-    
-    init(id: UUID, reps: Int, weight: Int) {
-        self.id = id
-        self.reps = reps
-        self.weight = weight
-    }
-    
-    init(reps: Int, weight: Int) {
-        self.id = .init()
-        self.reps = reps
-        self.weight = weight
-    }
-    
-}

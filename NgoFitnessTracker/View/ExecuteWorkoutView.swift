@@ -62,6 +62,8 @@ struct ExecuteWorkoutView: View {
             
         }
     }
+
+    
     func updateWorkoutsAndReturn() {
         self.presentationMode.wrappedValue.dismiss()
         saveToCoreData(workouts: self.store.state.workouts)

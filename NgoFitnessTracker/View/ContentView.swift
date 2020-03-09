@@ -11,9 +11,7 @@ struct ContentView: View {
     @EnvironmentObject var store: AppStore
     @State private var newWorkout: String = ""
     @State private var addingNewWorkout = false
-    @Environment(\.managedObjectContext) var managedObjectContext
-    @FetchRequest(entity: CDWorkout.entity(), sortDescriptors: []) var CDworkouts: FetchedResults<CDWorkout>
-    
+
     var body: some View {
         NavigationView {
             List {
@@ -53,16 +51,12 @@ struct ContentView: View {
         
     }
     func deleteWorkout(at offsets: IndexSet) {
-        store.dispatch(action: .removeWorkout(offsets: offsets))
         for index in offsets {
-            let wo = CDworkouts[index]
-            managedObjectContext.delete(wo)
+            let workoutID = self.store.state.workouts[index].id
+            CDDeleteWorkout(workoutID: workoutID)
         }
-        do {
-            try managedObjectContext.save()
-        } catch {
-            // handle the Core Data error
-        }
+        store.dispatch(action: .removeWorkout(offsets: offsets))
+
     }
     
     func moveWorkout(source: IndexSet, destination: Int) {

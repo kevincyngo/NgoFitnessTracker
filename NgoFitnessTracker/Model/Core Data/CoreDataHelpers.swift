@@ -49,6 +49,38 @@ func CDSaveWorkout(workout: Workout) {
     trySave(context: context)
 }
 
+func CDDeleteExercise(workoutID: UUID, exerciseID: UUID) {
+    let context = getManagedObjectContext()
+    var results: [CDWorkout] = []
+    context.performAndWait {
+        let fetchRequest = NSFetchRequest<CDWorkout>(entityName: EntityType.workout.rawValue)
+        fetchRequest.predicate = NSPredicate(format: "id == %@", workoutID as CVarArg)
+        fetchRequest.fetchLimit = 1
+        results = try! fetchRequest.execute()
+        for cdWorkout in results  {
+            for cdExercise in cdWorkout.exercises!.allObjects as! [CDExercise] {
+                if cdExercise.id == exerciseID {
+                    cdWorkout.removeFromExercises(cdExercise)
+                    break
+                }
+            }
+        }
+    }
+    trySave(context: context)
+}
+
+func CDDeleteWorkout(workoutID: UUID) {
+    let context = getManagedObjectContext()
+    var results: [CDWorkout] = []
+    context.performAndWait {
+        let fetchRequest = NSFetchRequest<CDWorkout>(entityName: EntityType.workout.rawValue)
+        fetchRequest.predicate = NSPredicate(format: "id == %@", workoutID as CVarArg)
+        fetchRequest.fetchLimit = 1
+        results = try! fetchRequest.execute()
+        context.delete(results[0])
+    }
+}
+
 func CDSaveExercise(workoutID: UUID, exercise: Exercise) {
     let context = getManagedObjectContext()
     var results: [CDWorkout] = []

@@ -12,7 +12,7 @@ struct UpdateWorkoutView: View {
     @State var workoutIdx: Int
     @State var showingUpdateExerciseView = false
     @State var isAddingExercise = false
-    
+
     var workout: Workout {
         if(workoutIdx < store.state.workouts.count) {
             return store.state.workouts[workoutIdx]
@@ -40,8 +40,8 @@ struct UpdateWorkoutView: View {
                             }
                         }
                     }
-                    .onDelete(perform: self.delete)
-                    .onMove(perform: self.move)
+                    .onDelete(perform: self.deleteExercise)
+                    .onMove(perform: self.moveExercise)
                 }
             }
             NavigationLink(destination: ExecuteWorkoutView(workoutIdx: self.workoutIdx, completedSets: [Int](repeating: 0, count: self.workout.exercises.count)).environmentObject(self.store)) {
@@ -79,11 +79,17 @@ struct UpdateWorkoutView: View {
         }.font(.system(size: 20))
 
     }
-    func delete(at offsets: IndexSet) {
+    func deleteExercise(at offsets: IndexSet) {
+        for index in offsets {
+            let exerciseID = self.workout.exercises[index].id
+            CDDeleteExercise(workoutID: self.workout.id, exerciseID: exerciseID)
+        }
         store.dispatch(action: .removeExercise(workoutIdx: self.workoutIdx, offsets: offsets))
+
+        
     }
     
-    func move(source: IndexSet, destination: Int) {
+    func moveExercise(source: IndexSet, destination: Int) {
         store.dispatch(action: .moveExercise(workoutIdx: self.workoutIdx, source: source, destination: destination))
     }
 }
