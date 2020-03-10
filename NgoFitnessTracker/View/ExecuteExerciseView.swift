@@ -34,10 +34,13 @@ struct ExecuteExerciseView: View {
                 ScrollView {
                     HStack {
                         Text("").frame(width: geo.size.width/5)
+                        
                         Spacer()
                         Text("Reps").frame(width: geo.size.width/5)
+                            .padding([.leading,.trailing])
                         Spacer()
                         Text("Weight").frame(width: geo.size.width/5)
+                            .padding([.leading,.trailing])
                         Spacer()
                     }
                     ForEach(self.exercise.results.indices, id: \.self) {idx in
@@ -52,7 +55,7 @@ struct ExecuteExerciseView: View {
                             }
                                 
                             )).frame(width: geo.size.width/5)
-                                //                            .padding()
+                                .padding()
                                 .background(Color.secondary)
                             Spacer()
                             TextField("lbs", text: Binding(
@@ -63,7 +66,7 @@ struct ExecuteExerciseView: View {
                             }
                                 
                             )).frame(width: geo.size.width/5)
-                                //                            .padding()
+                                .padding()
                                 .background(Color.secondary)
                             
                             Spacer()

@@ -27,10 +27,13 @@ func fetchCoreData() -> [Workout] {
         for workout in results {
             var exercises = [Exercise]()
             for exercise in workout.exercises!.allObjects as! [CDExercise] {
-                var results = [Results]()
-                for result in exercise.results!.allObjects as! [CDResult] {
-                    results.append(Results(reps: Int(result.reps), weight: Int(result.weight)))
-                }
+//                var results = [Results]()
+                let results = Array(repeating: Results(reps:-1, weight:-1), count: Int(exercise.sets))
+//                for result in exercise.results!.allObjects as! [CDResult] {
+//                    results.append(Results(reps: Int(result.reps), weight: Int(result.weight)))
+//                }
+                
+                
                 exercises.append(Exercise(id: exercise.id, name: exercise.wrappedName, sets: exercise.sets, reps: exercise.reps, sortID: Int(exercise.sortID), results:results))
             }
             exercises.sort {
@@ -138,7 +141,12 @@ func CDUpdateSortOrder(workoutID: UUID, exercises: [Exercise]) {
     trySave(context: context)
 }
 
-func CDSaveResults(workoutID: UUID, exerciseID: UUID, result: Results) {}
+//MARK: For Beta launch, this will be used to store the workout result
+func CDSaveResults(workoutID: UUID, exerciseID: UUID, result: Results) {
+    //fetch for workout
+    //fetch for exercise
+    
+}
 
 func trySave(context: NSManagedObjectContext) {
     if context.hasChanges {
