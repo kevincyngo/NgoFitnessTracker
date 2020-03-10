@@ -63,6 +63,8 @@ struct EditExerciseView: View {
         }
         self.store.dispatch(action: .updateExercise(workoutIdx: self.workoutIdx, exercise: exercise, exerciseIdx: self.exerciseIdx))
         CDSaveExercise(workoutID: self.store.state.workouts[self.workoutIdx].id, exercise: exercise)
+        CDUpdateSortOrder(workoutID: self.store.state.workouts[self.workoutIdx].id, exercises: self.store.state.workouts[self.workoutIdx].exercises)
+
         self.isPresented = false
     }
 }

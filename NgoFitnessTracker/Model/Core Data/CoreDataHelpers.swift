@@ -11,13 +11,13 @@ import CoreData
 import SwiftUI
 
 enum EntityType: String {
-    case workout = "CDWorkout", exercise = "CDExercise", result = "CDResult"
+    case CDWorkout = "CDWorkout", CDExercise = "CDExercise", CDResult = "CDResult"
 }
 
 
 func fetchCoreData() -> [Workout] {
     let moc = getManagedObjectContext()
-    let request = NSFetchRequest<CDWorkout>(entityName: "CDWorkout")
+    let request = NSFetchRequest<CDWorkout>(entityName: EntityType.CDWorkout.rawValue)
     request.returnsObjectsAsFaults = false
     
     var workouts = [Workout]()
@@ -31,8 +31,10 @@ func fetchCoreData() -> [Workout] {
                 for result in exercise.results!.allObjects as! [CDResult] {
                     results.append(Results(reps: Int(result.reps), weight: Int(result.weight)))
                 }
-                exercises.append(Exercise(id: exercise.id, name: exercise.wrappedName, sets: exercise.sets, reps: exercise.reps, results:results))
-                
+                exercises.append(Exercise(id: exercise.id, name: exercise.wrappedName, sets: exercise.sets, reps: exercise.reps, sortID: Int(exercise.sortID), results:results))
+            }
+            exercises.sort {
+                $0.sortID < $1.sortID
             }
             workouts.append(Workout(id: workout.id, title: workout.wrappedTitle, exercises: exercises))
         }
@@ -56,7 +58,7 @@ func CDDeleteExercise(workoutID: UUID, exerciseID: UUID) {
     let context = getManagedObjectContext()
     var results: [CDWorkout] = []
     context.performAndWait {
-        let fetchRequest = NSFetchRequest<CDWorkout>(entityName: EntityType.workout.rawValue)
+        let fetchRequest = NSFetchRequest<CDWorkout>(entityName: EntityType.CDWorkout.rawValue)
         fetchRequest.predicate = NSPredicate(format: "id == %@", workoutID as CVarArg)
         fetchRequest.fetchLimit = 1
         results = try! fetchRequest.execute()
@@ -76,21 +78,21 @@ func CDDeleteWorkout(workoutID: UUID) {
     let context = getManagedObjectContext()
     var results: [CDWorkout] = []
     context.performAndWait {
-        let fetchRequest = NSFetchRequest<CDWorkout>(entityName: EntityType.workout.rawValue)
+        let fetchRequest = NSFetchRequest<CDWorkout>(entityName: EntityType.CDWorkout.rawValue)
         fetchRequest.predicate = NSPredicate(format: "id == %@", workoutID as CVarArg)
         fetchRequest.fetchLimit = 1
         results = try! fetchRequest.execute()
         context.delete(results[0])
     }
     trySave(context: context)
-
+    
 }
 
 func CDSaveExercise(workoutID: UUID, exercise: Exercise) {
     let context = getManagedObjectContext()
     var results: [CDWorkout] = []
     context.performAndWait {
-        let fetchRequest = NSFetchRequest<CDWorkout>(entityName: EntityType.workout.rawValue)
+        let fetchRequest = NSFetchRequest<CDWorkout>(entityName: EntityType.CDWorkout.rawValue)
         fetchRequest.predicate = NSPredicate(format: "id == %@", workoutID as CVarArg)
         fetchRequest.fetchLimit = 1
         results = try! fetchRequest.execute()
@@ -115,41 +117,28 @@ func CDSaveExercise(workoutID: UUID, exercise: Exercise) {
     trySave(context: context)
 }
 
-
-func CDSaveResults(workoutID: UUID, exerciseID: UUID, result: Results) {}
-
-
-func saveToCoreData(workouts: [Workout]) {
-    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+func CDUpdateSortOrder(workoutID: UUID, exercises: [Exercise]) {
+    let context = getManagedObjectContext()
+    var results: [CDWorkout] = []
     context.performAndWait {
-        workouts.forEach { workout in
-            if (!checkRecordExists(entity: EntityType.workout.rawValue, uniqueIdentity: workout.id)) {
-                let cdWorkout = CDWorkout(context: context)
-                cdWorkout.id = workout.id
-                cdWorkout.title = workout.title
-                for (index, exercise) in workout.exercises.enumerated() {
-//                workout.exercises.forEach {exercise in
-                    let cdExercise = CDExercise(context: context)
-                    cdExercise.sortID = Int16(index)
-                    cdExercise.id = exercise.id
-                    cdExercise.name = exercise.name
-                    cdExercise.reps = exercise.reps
-                    cdExercise.sets = exercise.sets
-                    
-                    exercise.results.forEach {result in
-                        let cdResult = CDResult(context: context)
-                        cdResult.id = result.id
-                        cdResult.reps = Int16(result.reps)
-                        cdResult.weight = Int16(result.weight)
-                        cdExercise.addToResults(cdResult)
-                    }
-                    cdWorkout.addToExercises(cdExercise)
+        let fetchRequest = NSFetchRequest<CDWorkout>(entityName: EntityType.CDWorkout.rawValue)
+        fetchRequest.predicate = NSPredicate(format: "id == %@", workoutID as CVarArg)
+        fetchRequest.fetchLimit = 1
+        results = try! fetchRequest.execute()
+        let cdWorkout = results[0]
+        
+        for (index,exercise) in exercises.enumerated() {
+            for cdExercise in cdWorkout.exercises!.allObjects as! [CDExercise] {
+                if exercise.id == cdExercise.id {
+                    cdExercise.setValue(index, forKey: "sortID")
                 }
             }
         }
     }
     trySave(context: context)
 }
+
+func CDSaveResults(workoutID: UUID, exerciseID: UUID, result: Results) {}
 
 func trySave(context: NSManagedObjectContext) {
     if context.hasChanges {

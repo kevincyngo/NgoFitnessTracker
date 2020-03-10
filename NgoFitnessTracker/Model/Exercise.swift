@@ -31,6 +31,15 @@ struct Exercise: Identifiable {
         self.results = results
     }
     
+    init(id: UUID, name: String, sets: Double, reps: Double, sortID: Int, results: [Results]) {
+        self.id = id
+        self.name = name
+        self.sets = sets
+        self.reps = reps
+        self.sortID = sortID
+        self.results = results
+    }
+    
     init(name: String, sets: Double, reps: Double, results: [Results]) {
         self.id = .init()
         self.name = name

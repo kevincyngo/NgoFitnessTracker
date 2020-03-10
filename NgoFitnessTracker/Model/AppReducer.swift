@@ -34,9 +34,6 @@ func appReducer(state: AppState, action: AppAction) -> AppState {
         
     case .moveExercise(let workoutIdx, let source, let destination):
         state.workouts[workoutIdx].exercises.move(fromOffsets: source, toOffset: destination)
-        state.workouts[workoutIdx].exercises.sort {
-            $0.sortID < $1.sortID
-        }
     case .removeExercise(let workoutIdx, let offsets):
         state.workouts[workoutIdx].exercises.remove(atOffsets: offsets)
     

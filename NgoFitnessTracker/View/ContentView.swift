@@ -60,11 +60,6 @@ struct ContentView: View {
     
     func moveWorkout(source: IndexSet, destination: Int) {
         store.dispatch(action: .moveWorkout(source: source, destination: destination))
-        
-        for index in source {
-            print(index)
-        }
-        print(destination)
     }
     
     func addWorkout(title: String) {

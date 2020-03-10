@@ -58,15 +58,11 @@ struct ExecuteWorkoutView: View {
                           secondaryButton: .cancel()
                     )
             }
-            
-            
         }
     }
 
-    
     func updateWorkoutsAndReturn() {
         self.presentationMode.wrappedValue.dismiss()
-        saveToCoreData(workouts: self.store.state.workouts)
     }
 }
 

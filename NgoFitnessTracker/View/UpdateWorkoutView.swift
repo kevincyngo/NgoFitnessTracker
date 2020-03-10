@@ -88,6 +88,7 @@ struct UpdateWorkoutView: View {
     
     func moveExercise(source: IndexSet, destination: Int) {
         store.dispatch(action: .moveExercise(workoutIdx: self.workoutIdx, source: source, destination: destination))
+        CDUpdateSortOrder(workoutID: self.workout.id, exercises: self.workout.exercises)
     }
 }
 
