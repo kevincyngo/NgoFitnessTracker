@@ -22,7 +22,7 @@ extension CDExercise {
     @NSManaged public var sets: Double
     @NSManaged public var reps: Double
     @NSManaged public var results: NSSet?
-
+    @NSManaged public var sortID: Int16
     
     var wrappedName: String {
         name ?? "Unknown Exercise"

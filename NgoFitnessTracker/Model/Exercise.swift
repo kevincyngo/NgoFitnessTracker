@@ -14,6 +14,7 @@ struct Exercise: Identifiable {
     var sets: Double
     var reps: Double
     var results: [Results]
+    var sortID: Int = 0
     var strSets: String {
         String(Int(sets))
     }

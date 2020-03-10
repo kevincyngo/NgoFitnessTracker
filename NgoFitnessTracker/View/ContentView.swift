@@ -21,7 +21,7 @@ struct ContentView: View {
                     }
                 }
                 .onDelete(perform: self.deleteWorkout)
-                .onMove(perform: self.moveWorkout)
+//                .onMove(perform: self.moveWorkout)
                 
                 if addingNewWorkout {
                     TextField("New Workout", text: $newWorkout, onCommit: {
@@ -56,7 +56,6 @@ struct ContentView: View {
             CDDeleteWorkout(workoutID: workoutID)
         }
         store.dispatch(action: .removeWorkout(offsets: offsets))
-
     }
     
     func moveWorkout(source: IndexSet, destination: Int) {

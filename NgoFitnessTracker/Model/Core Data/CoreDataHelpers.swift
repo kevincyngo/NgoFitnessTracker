@@ -37,6 +37,9 @@ func fetchCoreData() -> [Workout] {
             workouts.append(Workout(id: workout.id, title: workout.wrappedTitle, exercises: exercises))
         }
     }
+    workouts.sort {
+        $0.title < $1.title
+    }
     return workouts
 }
 
@@ -79,6 +82,8 @@ func CDDeleteWorkout(workoutID: UUID) {
         results = try! fetchRequest.execute()
         context.delete(results[0])
     }
+    trySave(context: context)
+
 }
 
 func CDSaveExercise(workoutID: UUID, exercise: Exercise) {
@@ -108,8 +113,9 @@ func CDSaveExercise(workoutID: UUID, exercise: Exercise) {
         }
     }
     trySave(context: context)
-    
 }
+
+
 func CDSaveResults(workoutID: UUID, exerciseID: UUID, result: Results) {}
 
 
@@ -121,8 +127,10 @@ func saveToCoreData(workouts: [Workout]) {
                 let cdWorkout = CDWorkout(context: context)
                 cdWorkout.id = workout.id
                 cdWorkout.title = workout.title
-                workout.exercises.forEach {exercise in
+                for (index, exercise) in workout.exercises.enumerated() {
+//                workout.exercises.forEach {exercise in
                     let cdExercise = CDExercise(context: context)
+                    cdExercise.sortID = Int16(index)
                     cdExercise.id = exercise.id
                     cdExercise.name = exercise.name
                     cdExercise.reps = exercise.reps
@@ -141,9 +149,7 @@ func saveToCoreData(workouts: [Workout]) {
         }
     }
     trySave(context: context)
-    
 }
-
 
 func trySave(context: NSManagedObjectContext) {
     if context.hasChanges {
@@ -152,9 +158,7 @@ func trySave(context: NSManagedObjectContext) {
 }
 
 func getManagedObjectContext() -> NSManagedObjectContext{
-
     let delegate = UIApplication.shared.delegate as? AppDelegate
-
     return delegate!.persistentContainer.viewContext
 }
 
@@ -167,5 +171,4 @@ func checkRecordExists(entity: String,uniqueIdentity: UUID) -> Bool {
         results = try! fetchRequest.execute()
     }
     return results.count > 0
-
 }

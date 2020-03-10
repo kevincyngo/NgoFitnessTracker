@@ -61,8 +61,6 @@ struct UpdateWorkoutView: View {
                                 .frame(width: 25, height: 25)
                         })
                     }
-                    
-                    
             )
                 .sheet(isPresented: $showingUpdateExerciseView) {
                     if self.isAddingExercise {
@@ -79,14 +77,13 @@ struct UpdateWorkoutView: View {
         }.font(.system(size: 20))
 
     }
+    
     func deleteExercise(at offsets: IndexSet) {
         for index in offsets {
             let exerciseID = self.workout.exercises[index].id
             CDDeleteExercise(workoutID: self.workout.id, exerciseID: exerciseID)
         }
         store.dispatch(action: .removeExercise(workoutIdx: self.workoutIdx, offsets: offsets))
-
-        
     }
     
     func moveExercise(source: IndexSet, destination: Int) {
