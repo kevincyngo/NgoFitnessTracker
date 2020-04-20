@@ -21,6 +21,8 @@ struct ExecuteExerciseView: View {
     @State var exerciseIdx: Int
     @Binding var completedSets: [Int]
     
+    @State var showLastResults = false
+    
     var exercise: Exercise {
         if(workoutIdx < store.state.workouts.count && exerciseIdx < store.state.workouts[workoutIdx].exercises.count) {
             return store.state.workouts[workoutIdx].exercises[exerciseIdx]
@@ -33,8 +35,9 @@ struct ExecuteExerciseView: View {
             VStack {
                 ScrollView {
                     HStack {
-                        Text("").frame(width: geo.size.width/5)
-                        
+                        Button(self.showLastResults ? "Hide" : "Show") {
+                            self.showLastResults.toggle()
+                        }.frame(width: geo.size.width/5)
                         Spacer()
                         Text("Reps").frame(width: geo.size.width/5)
                             .padding([.leading,.trailing])
@@ -43,24 +46,27 @@ struct ExecuteExerciseView: View {
                             .padding([.leading,.trailing])
                         Spacer()
                     }
+                    //MARK: - check the results, if it isn't -1, then use it as the placeholder. this allows us to track the previously recorded reps/ weight
                     ForEach(self.exercise.results.indices, id: \.self) {idx in
                         HStack {
-                            Text("Set \(idx+1)").frame(width: geo.size.width/5)
+                            Text(self.getResult(self.exercise.results[idx], idx)).frame(width: geo.size.width/5)
                             Spacer()
                             TextField("\(self.exercise.strReps)", text: Binding(
                                 get: {
-                                    (String(self.exercise.results[idx].reps) == "-1" ? "" : String(self.exercise.results[idx].reps))
+                                    (self.exercise.results[idx].strReps)
+//                                    (String(self.exercise.results[idx].reps) == "-1" ? "" : String(self.exercise.results[idx].reps))
                             }, set: {
                                 return self.updateReps(resultsIdx: idx, reps: $0)
                             }
-                                
+
                             )).frame(width: geo.size.width/5)
                                 .padding()
                                 .background(Color.secondary)
                             Spacer()
                             TextField("lbs", text: Binding(
                                 get: {
-                                    String(self.exercise.results[idx].weight) == "-1" ? "" : String(self.exercise.results[idx].weight)
+                                    self.exercise.results[idx].strWeight
+//                                    String(self.exercise.results[idx].weight) == "-1" ? "" : String(self.exercise.results[idx].weight)
                             }, set: {
                                 newValue in return self.updateWeights(resultsIdx: idx, weight: newValue)
                             }
@@ -85,6 +91,17 @@ struct ExecuteExerciseView: View {
             }
             .navigationBarTitle("\(self.exercise.name)")
         }
+    }
+    
+    func getResult(_ result: Results, _ setNumber: Int) -> String {
+//        if self.showLastResults {
+//            if (result.reps != -1 && result.weight != -1) {
+//                return ("\(result.reps)x\(result.weight)")
+//            } else {
+//                return ("Inc")
+//            }
+//        }
+        return "Set"
     }
     
     func updateCompletedSetsAndReturn() {

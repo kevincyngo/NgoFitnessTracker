@@ -13,6 +13,9 @@ struct Exercise: Identifiable {
     var name: String
     var sets: Double
     var reps: Double
+    //resultsHistory is for display only, will store the last 10 results
+    var resultsHistory = [Results]()
+    
     var results: [Results]
     var sortID: Int = 0
     var strSets: String {

@@ -60,8 +60,9 @@ struct ExecuteWorkoutView: View {
             }
         }
     }
-
+    
     func updateWorkoutsAndReturn() {
+        CDSaveResults(workoutID: workout.id, workout: workout)
         self.presentationMode.wrappedValue.dismiss()
     }
 }

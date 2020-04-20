@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15702" systemVersion="19C57" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="16119" systemVersion="19C57" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="CDExercise" representedClassName="CDExercise" syncable="YES">
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="name" optional="YES" attributeType="String"/>
@@ -12,6 +12,7 @@
     <entity name="CDResult" representedClassName="CDResult" syncable="YES">
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="reps" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="sortID" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="weight" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="exercise" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDExercise" inverseName="results" inverseEntity="CDExercise"/>
     </entity>
@@ -22,7 +23,7 @@
     </entity>
     <elements>
         <element name="CDExercise" positionX="18" positionY="63" width="128" height="148"/>
-        <element name="CDResult" positionX="54" positionY="99" width="128" height="103"/>
+        <element name="CDResult" positionX="54" positionY="99" width="128" height="118"/>
         <element name="CDWorkout" positionX="-27" positionY="18" width="128" height="88"/>
     </elements>
 </model>

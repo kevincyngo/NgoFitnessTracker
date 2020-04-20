@@ -19,5 +19,6 @@ extension CDResult {
     @NSManaged public var id: UUID?
     @NSManaged public var reps: Int16
     @NSManaged public var weight: Int16
+    @NSManaged public var sortID: Int16
 
 }

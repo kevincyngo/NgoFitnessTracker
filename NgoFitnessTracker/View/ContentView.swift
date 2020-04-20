@@ -11,7 +11,7 @@ struct ContentView: View {
     @EnvironmentObject var store: AppStore
     @State private var newWorkout: String = ""
     @State private var addingNewWorkout = false
-
+    
     var body: some View {
         NavigationView {
             List {

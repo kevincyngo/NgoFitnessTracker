@@ -23,17 +23,17 @@ func fetchCoreData() -> [Workout] {
     var workouts = [Workout]()
     
     moc.performAndWait {
-        let results: [CDWorkout] = try! request.execute()
-        for workout in results {
+        let fetchResult: [CDWorkout] = try! request.execute()
+        for workout in fetchResult {
             var exercises = [Exercise]()
             for exercise in workout.exercises!.allObjects as! [CDExercise] {
-//                var results = [Results]()
-                let results = Array(repeating: Results(reps:-1, weight:-1), count: Int(exercise.sets))
-//                for result in exercise.results!.allObjects as! [CDResult] {
-//                    results.append(Results(reps: Int(result.reps), weight: Int(result.weight)))
-//                }
-                
-                
+                var results = [Results]()
+                for result in exercise.results!.allObjects as! [CDResult] {
+                    results.append(Results(reps: Int(result.reps), weight: Int(result.weight), sortID: Int((result.sortID))))
+                }
+                results.sort {
+                    $0.sortID < $1.sortID
+                }
                 exercises.append(Exercise(id: exercise.id, name: exercise.wrappedName, sets: exercise.sets, reps: exercise.reps, sortID: Int(exercise.sortID), results:results))
             }
             exercises.sort {
@@ -141,11 +141,60 @@ func CDUpdateSortOrder(workoutID: UUID, exercises: [Exercise]) {
     trySave(context: context)
 }
 
+func CDUpdateResultsSortOrder(workoutID: UUID, exerciseID: UUID, results: [Results]) {
+    let context = getManagedObjectContext()
+    var results: [CDWorkout] = []
+    context.performAndWait {
+        let fetchRequest = NSFetchRequest<CDWorkout>(entityName: EntityType.CDWorkout.rawValue)
+        fetchRequest.predicate = NSPredicate(format: "id == %@", workoutID as CVarArg)
+        fetchRequest.fetchLimit = 1
+        results = try! fetchRequest.execute()
+        let cdWorkout = results[0]
+        let cdExercise = (cdWorkout.exercises!.allObjects as! [CDExercise]).first(where: {$0.id == exerciseID})
+        for (index,result) in results.enumerated() {
+            for cdResult in cdExercise?.results!.allObjects as! [CDResult] {
+                if result.id == cdResult.id {
+                    cdResult.setValue(index, forKey: "sortID")
+                }
+            }
+        }
+    }
+    trySave(context: context)
+}
+
 //MARK: For Beta launch, this will be used to store the workout result
-func CDSaveResults(workoutID: UUID, exerciseID: UUID, result: Results) {
+func CDSaveResults(workoutID: UUID, workout: Workout) {
     //fetch for workout
-    //fetch for exercise
+    //loop through all exercises and save thier results
     
+    
+    let context = getManagedObjectContext()
+    var results: [CDWorkout] = []
+    context.performAndWait {
+        let fetchRequest = NSFetchRequest<CDWorkout>(entityName: EntityType.CDWorkout.rawValue)
+        fetchRequest.predicate = NSPredicate(format: "id == %@", workoutID as CVarArg)
+        fetchRequest.fetchLimit = 1
+        results = try! fetchRequest.execute()
+        for cdWorkout in results {
+            
+            for cdExercise in cdWorkout.exercises!.allObjects as! [CDExercise] {
+                //will be unique since id is unique
+                for cdResult in cdExercise.results!.allObjects as! [CDResult] {
+                    context.delete(cdResult)
+                }
+                let exercise = workout.exercises.first(where: {$0.id == cdExercise.id})
+                for result in exercise!.results {
+                    let cdResults = CDResult(context: context)
+                    cdResults.id = result.id
+                    cdResults.sortID = Int16(result.sortID)
+                    cdResults.reps = Int16(result.reps)
+                    cdResults.weight = Int16(result.weight)
+                    cdExercise.addToResults(cdResults)
+                }
+            }
+        }
+    }
+    trySave(context: context)
 }
 
 func trySave(context: NSManagedObjectContext) {

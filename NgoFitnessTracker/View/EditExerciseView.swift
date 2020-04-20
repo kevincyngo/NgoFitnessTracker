@@ -53,7 +53,10 @@ struct EditExerciseView: View {
     }
     
     func saveExerciseAndReturn() {
-        let results = Array(repeating: Results(reps:-1, weight:-1), count: Int(self.sets))
+        var results = [Results]()
+        for idx in 0..<Int(self.sets) {
+            results.append(Results(reps: -1, weight: -1, sortID: idx))
+        }
         var exercise: Exercise
         
         if self.exerciseIdx >= 0 {
